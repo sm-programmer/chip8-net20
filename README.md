@@ -77,7 +77,8 @@ License
 -------
 
 The CHIP-8 emulator: an implementation in C# using .NET Framework 2.0.
-Copyright (C) 2020  Felipe BF  <smprg.6502@gmail.com>
+
+Copyright (C) 2020  Felipe BF  \<smprg.6502@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

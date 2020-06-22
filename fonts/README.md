@@ -10,7 +10,7 @@ To add a new font, please add a properly formatted file here that follows this s
 3. The new font must include exactly 16 glyphs.
 4. Each glyph must occupy exactly 5 bytes, starting from the top row and going downward.
 5. Each glyph is a 4-by-5 monochrome image, with data starting in the most significant bit, as follows:
-
+```
        Repr.       Values
     ┏━━━━━━━━┓
     ┃▒▒▒▒    ┃    11110000
@@ -19,7 +19,7 @@ To add a new font, please add a properly formatted file here that follows this s
     ┃▒  ▒    ┃    10010000
     ┃▒  ▒    ┃    10010000
     ┗━━━━━━━━┛
-
+```
 6. As seen above, a lit up bit is represented by a `1`, `0` otherwise.
 7. Symbols provided should be:
     * Numbers 0 to 9.
