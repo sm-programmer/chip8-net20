@@ -47,6 +47,7 @@ namespace Chip8_NET20
         private ToolStripMenuItem[] availableSpeeds;
 
         private FrmMemViewer frmMemViewer;
+        private FrmRegInspect frmRegInspect;
 
         public FrmMain()
         {
@@ -78,6 +79,9 @@ namespace Chip8_NET20
 
             frmMemViewer = new FrmMemViewer();
             frmMemViewer.Source = comp;
+
+            frmRegInspect = new FrmRegInspect();
+            frmRegInspect.Source = comp;
         }
 
         private void init_computer()
@@ -264,6 +268,14 @@ namespace Chip8_NET20
                 frmMemViewer.Show(this);
             else
                 frmMemViewer.Focus();
+        }
+
+        private void itemDevRegInspect_Click(object sender, EventArgs e)
+        {
+            if (!frmRegInspect.Visible)
+                frmRegInspect.Show(this);
+            else
+                frmRegInspect.Focus();
         }
 
         private void itemAbout_Click(object sender, EventArgs e)

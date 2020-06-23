@@ -20,27 +20,26 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using Notifiable;
-
-namespace Generic
+namespace Notifiable
 {
-    public abstract class Processor : NotifiableObject
+    public enum ListStatus
     {
-        private int _speed;
-        public int Speed
+        None,
+        Clearing, Cleared
+    }
+
+    public class ListStatusEventArgs
+    {
+        private ListStatus _status;
+        public ListStatus Status
         {
-            get { return _speed; }
-            set { _speed = value; }
+            get { return _status; }
+            private set { _status = value; }
         }
 
-        private bool _draw;
-        public bool Draw
+        public ListStatusEventArgs(ListStatus status)
         {
-            get { return _draw; }
-            set { _draw = value; }
+            Status = status;
         }
-
-        public abstract void Reset();
-        public abstract void ExecuteCycles(int noCycles);
     }
 }

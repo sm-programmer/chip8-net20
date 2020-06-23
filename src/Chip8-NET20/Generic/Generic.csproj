@@ -44,6 +44,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screen.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Notifiable\Notifiable.csproj">
+      <Project>{E713CB4A-9A58-4FE3-AD10-346900205D32}</Project>
+      <Name>Notifiable</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

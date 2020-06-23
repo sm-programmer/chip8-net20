@@ -58,6 +58,7 @@ namespace Chip8_NET20
             this.itemShowDevTools = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDev = new System.Windows.Forms.ToolStripMenuItem();
             this.itemDevMemViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemDevRegInspect = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.itemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
@@ -325,7 +326,8 @@ namespace Chip8_NET20
             // menuDev
             // 
             this.menuDev.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemDevMemViewer});
+            this.itemDevMemViewer,
+            this.itemDevRegInspect});
             this.menuDev.Name = "menuDev";
             this.menuDev.Size = new System.Drawing.Size(68, 20);
             this.menuDev.Text = "&Developer";
@@ -336,9 +338,18 @@ namespace Chip8_NET20
             this.itemDevMemViewer.Enabled = false;
             this.itemDevMemViewer.Name = "itemDevMemViewer";
             this.itemDevMemViewer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.itemDevMemViewer.Size = new System.Drawing.Size(198, 22);
+            this.itemDevMemViewer.Size = new System.Drawing.Size(211, 22);
             this.itemDevMemViewer.Text = "&Memory viewer";
             this.itemDevMemViewer.Click += new System.EventHandler(this.itemDevMemViewer_Click);
+            // 
+            // itemDevRegInspect
+            // 
+            this.itemDevRegInspect.Enabled = false;
+            this.itemDevRegInspect.Name = "itemDevRegInspect";
+            this.itemDevRegInspect.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.itemDevRegInspect.Size = new System.Drawing.Size(211, 22);
+            this.itemDevRegInspect.Text = "&Register inspector";
+            this.itemDevRegInspect.Click += new System.EventHandler(this.itemDevRegInspect_Click);
             // 
             // menuHelp
             // 
@@ -558,6 +569,7 @@ namespace Chip8_NET20
         private System.Windows.Forms.ToolStripMenuItem itemShowDevTools;
         private System.Windows.Forms.ToolStripMenuItem menuDev;
         private System.Windows.Forms.ToolStripMenuItem itemDevMemViewer;
+        private System.Windows.Forms.ToolStripMenuItem itemDevRegInspect;
     }
 }
 

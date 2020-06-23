@@ -34,10 +34,7 @@ namespace Chip8_NET20
         public Computer Source
         {
             private get { return _comp; }
-            set
-            {
-                _comp = value;
-            }
+            set { _comp = value; }
         }
 
         public FrmMemViewer()

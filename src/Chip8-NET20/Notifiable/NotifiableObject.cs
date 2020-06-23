@@ -19,28 +19,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
 
-using Notifiable;
-
-namespace Generic
+namespace Notifiable
 {
-    public abstract class Processor : NotifiableObject
+    public class NotifiableObject
     {
-        private int _speed;
-        public int Speed
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(PropertyChangedEventArgs e)
         {
-            get { return _speed; }
-            set { _speed = value; }
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+                handler(this, e);
         }
 
-        private bool _draw;
-        public bool Draw
+        protected void OnPropertyChanged(string propertyName)
         {
-            get { return _draw; }
-            set { _draw = value; }
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
-
-        public abstract void Reset();
-        public abstract void ExecuteCycles(int noCycles);
     }
 }

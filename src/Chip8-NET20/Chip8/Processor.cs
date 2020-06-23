@@ -21,20 +21,77 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 
+using Notifiable;
+
 namespace Chip8
 {
     public class Processor : Generic.Processor
     {
         private ushort opcode;
-        private ushort I;
-        private ushort pc;
 
-        private byte delay_timer;
-        private byte sound_timer;
-        private byte sp;
+        private ushort _i;
+        public ushort I
+        {
+            get { return _i; }
+            private set
+            {
+                _i = value;
+                OnPropertyChanged("I");
+            }
+        }
+
+        private ushort _pc;
+        public ushort PC
+        {
+            get { return _pc; }
+            private set
+            {
+                _pc = value;
+                OnPropertyChanged("PC");
+            }
+        }
+
+        private byte _delay_timer;
+        public byte DelayTimer
+        {
+            get { return _delay_timer; }
+            private set
+            {
+                _delay_timer = value;
+                OnPropertyChanged("DelayTimer");
+            }
+        }
+
+        private byte _sound_timer;
+        public byte SoundTimer
+        {
+            get { return _sound_timer; }
+            private set
+            {
+                _sound_timer = value;
+                OnPropertyChanged("SoundTimer");
+            }
+        }
+
+        private byte _sp;
+        public byte SP
+        {
+            get { return _sp; }
+            private set
+            {
+                _sp = value;
+                OnPropertyChanged("SP");
+            }
+        }
 
         private List<ushort> stack;
-        private List<byte> V;
+
+        private NotifiableList<byte> _v;
+        public NotifiableList<byte> V
+        {
+            get { return _v; }
+            private set { _v = value; }
+        }
 
         private bool _modify_I;
         public bool ModifyI
@@ -92,7 +149,7 @@ namespace Chip8
             for (int i = 0; i < 16; i++)
                 stack.Add(0);
 
-            V = new List<byte>();
+            V = new NotifiableList<byte>();
             for (int i = 0; i < 16; i++)
                 V.Add(0);
 
@@ -103,10 +160,10 @@ namespace Chip8
         public override void Reset()
         {
             // Reset pointers and opcode register.
-            pc = 0x200;
+            PC = 0x200;
             opcode = 0;
             I = 0;
-            sp = 0;
+            SP = 0;
 
             // Clear stack and registers.
             for (int i = 0; i < 16; i++)
@@ -115,8 +172,8 @@ namespace Chip8
                 V[i] = 0;
 
             // Reset timers.
-            delay_timer = 0;
-            sound_timer = 0;
+            DelayTimer = 0;
+            SoundTimer = 0;
         }
 
         public override void ExecuteCycles(int noCycles)
@@ -147,7 +204,7 @@ namespace Chip8
                 return;
 
             // Fetch opcode. (Big Endian, no boundary checking.)
-            opcode = (ushort)((MainRAM[pc] << 8) | MainRAM[pc + 1]);
+            opcode = (ushort)((MainRAM[PC] << 8) | MainRAM[PC + 1]);
 
             // Decode and execute opcode.
             switch (get_nibbles(opcode, (ushort)0xF000))
@@ -164,23 +221,23 @@ namespace Chip8
                                     VideoRAM.Clear();
 
                                 Draw = true;
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 00EE: Returns from subroutine.
                             case 0x00EE:
                                 Debug.WriteLine("RET");
 
-                                if (sp == 0)
+                                if (SP == 0)
                                     throw new Exception("Stack underflow.");
 
-                                pc = stack[--sp];
-                                pc += 2;
+                                PC = stack[--SP];
+                                PC += 2;
                                 break;
 
                             default:
                                 Debug.Print("Unknown 0x0000 opcode 0x{0:X4}.", opcode.ToString());
-                                pc += 2;
+                                PC += 2;
                                 break;
                         }
                     } break;
@@ -189,18 +246,18 @@ namespace Chip8
                 case 0x1000:
                     Debug.Print("JP 0x{0:X4}", get_nibbles(opcode, (ushort)0x0FFF).ToString());
 
-                    pc = get_nibbles(opcode, (ushort)0x0FFF);
+                    PC = get_nibbles(opcode, (ushort)0x0FFF);
                     break;
 
                 // 2NNN: Calls the subroutine at address NNN.
                 case 0x2000:
                     Debug.Print("CALL 0x{0:X4}", get_nibbles(opcode, (ushort)0x0FFF).ToString());
 
-                    if (sp == 15)
+                    if (SP == 15)
                         throw new Exception("Stack overflow.");
 
-                    stack[sp++] = pc;
-                    pc = get_nibbles(opcode, (ushort)0x0FFF);
+                    stack[SP++] = PC;
+                    PC = get_nibbles(opcode, (ushort)0x0FFF);
                     break;
 
                 // 3XKK: If register VX contains the value KK, increment PC by 2. 
@@ -208,9 +265,9 @@ namespace Chip8
                     Debug.Print("SE V{0:X}, 0x{1:X2}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00FF).ToString());
 
                     if (V[get_nibbles(opcode, (ushort)0x0F00, 8)] == get_nibbles(opcode, (ushort)0x00FF))
-                        pc += 2;
+                        PC += 2;
 
-                    pc += 2;
+                    PC += 2;
                     break;
 
                 // 4XKK: If register VX doesn't contain the value KK, increment PC by 2. 
@@ -218,9 +275,9 @@ namespace Chip8
                     Debug.Print("SNE V{0:X}, 0x{1:X2}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00FF).ToString());
 
                     if (V[get_nibbles(opcode, (ushort)0x0F00, 8)] != get_nibbles(opcode, (ushort)0x00FF))
-                        pc += 2;
+                        PC += 2;
 
-                    pc += 2;
+                    PC += 2;
                     break;
 
                 case 0x5000:
@@ -232,14 +289,14 @@ namespace Chip8
                                 Debug.Print("SE V{0:X}, V{1:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00F0, 4).ToString());
 
                                 if (V[get_nibbles(opcode, (ushort)0x0F00, 8)] == V[get_nibbles(opcode, (ushort)0x00F0, 4)])
-                                    pc += 2;
+                                    PC += 2;
 
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             default:
                                 Debug.Print("Unknown 0x5000 opcode 0x{0:X4}.", opcode.ToString());
-                                pc += 2;
+                                PC += 2;
                                 break;
                         }
                     } break;
@@ -249,7 +306,7 @@ namespace Chip8
                     Debug.Print("LD V{0:X}, 0x{1:X2}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00FF).ToString());
 
                     V[get_nibbles(opcode, (ushort)0x0F00, 8)] = (byte)get_nibbles(opcode, (ushort)0x00FF);
-                    pc += 2;
+                    PC += 2;
                     break;
 
                 // 7XKK: Add the value KK to register VX. (No carry generated.)
@@ -257,7 +314,7 @@ namespace Chip8
                     Debug.Print("ADD V{0:X}, 0x{1:X2}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00FF).ToString());
 
                     V[get_nibbles(opcode, (ushort)0x0F00, 8)] += (byte)get_nibbles(opcode, (ushort)0x00FF);
-                    pc += 2;
+                    PC += 2;
                     break;
 
                 case 0x8000:
@@ -269,7 +326,7 @@ namespace Chip8
                                 Debug.Print("LD V{0:X}, V{1:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00F0, 4).ToString());
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] = V[get_nibbles(opcode, (ushort)0x00F0, 4)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY1: Perform bitwise OR between registers VX and VY.
@@ -278,7 +335,7 @@ namespace Chip8
                                 Debug.Print("OR V{0:X}, V{1:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00F0, 4).ToString());
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] |= V[get_nibbles(opcode, (ushort)0x00F0, 4)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY2: Perform bitwise AND between registers VX and VY.
@@ -287,7 +344,7 @@ namespace Chip8
                                 Debug.Print("AND V{0:X}, V{1:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00F0, 4).ToString());
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] &= V[get_nibbles(opcode, (ushort)0x00F0, 4)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY3: Perform bitwise XOR between registers VX and VY.
@@ -296,7 +353,7 @@ namespace Chip8
                                 Debug.Print("XOR V{0:X}, V{1:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00F0, 4).ToString());
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] ^= V[get_nibbles(opcode, (ushort)0x00F0, 4)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY4: Add the values of registers VX and VY.
@@ -311,7 +368,7 @@ namespace Chip8
                                     V[0xF] = 0;
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] += V[get_nibbles(opcode, (ushort)0x00F0, 4)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY5: Subtract the value of register VY from register VX.
@@ -326,7 +383,7 @@ namespace Chip8
                                     V[0xF] = 0;
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] -= V[get_nibbles(opcode, (ushort)0x00F0, 4)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY6: Shift register VX 1 position to the right.
@@ -337,7 +394,7 @@ namespace Chip8
                                 V[0xF] = (byte)((V[get_nibbles(opcode, (ushort)0x0F00, 8)]) & 0x1);
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] >>= 1;
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XY7: Subtract the value of register VX from register VY.
@@ -352,7 +409,7 @@ namespace Chip8
                                     V[0xF] = 0;
 
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] = (byte)(V[get_nibbles(opcode, (ushort)0x00F0, 4)] - V[get_nibbles(opcode, (ushort)0x0F00, 8)]);
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // 8XYE: Shift register VX 1 position to the left.
@@ -362,12 +419,12 @@ namespace Chip8
 
                                 V[0xF] = (byte)(((V[get_nibbles(opcode, (ushort)0x0F00, 8)]) & 0x80) >> 7);
                                 V[get_nibbles(opcode, (ushort)0x0F00, 8)] <<= 1;
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             default:
                                 Debug.Print("Unknown 0x8000 opcode 0x{0:X4}.", opcode.ToString());
-                                pc += 2;
+                                PC += 2;
                                 break;
                         }
                     } break;
@@ -381,14 +438,14 @@ namespace Chip8
                                 Debug.Print("SNE V{0:X}, V{1:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString(), get_nibbles(opcode, (ushort)0x00F0, 4).ToString());
 
                                 if (V[get_nibbles(opcode, (ushort)0x0F00, 8)] != V[get_nibbles(opcode, (ushort)0x00F0, 4)])
-                                    pc += 2;
+                                    PC += 2;
 
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             default:
                                 Debug.Print("Unknown 0x9000 opcode 0x{0:X4}.", opcode.ToString());
-                                pc += 2;
+                                PC += 2;
                                 break;
                         }
                     } break;
@@ -398,14 +455,14 @@ namespace Chip8
                     Debug.Print("LD I, 0x{0:X4}", get_nibbles(opcode, (ushort)0x0FFF).ToString());
 
                     I = get_nibbles(opcode, (ushort)0x0FFF);
-                    pc += 2;
+                    PC += 2;
                     break;
 
                 // BNNN: Jump to location NNN + the value of register V0.
                 case 0xB000:
                     Debug.Print("JP V0, 0x{0:X4}", get_nibbles(opcode, (ushort)0x0FFF).ToString());
 
-                    pc = (ushort)(get_nibbles(opcode, (ushort)0x0FFF) + V[0]);
+                    PC = (ushort)(get_nibbles(opcode, (ushort)0x0FFF) + V[0]);
                     break;
 
                 // CXKK: Generate a random number between 0x00 and 0xFF.
@@ -418,7 +475,7 @@ namespace Chip8
                         int randNum = rnd.Next(256);
                         V[get_nibbles(opcode, (ushort)0x0F00, 8)] = (byte)(randNum & get_nibbles(opcode, (ushort)0x00FF));
 
-                        pc += 2;
+                        PC += 2;
                     } break;
 
                 // DXYN: Draw a sprite on the screen.
@@ -434,7 +491,7 @@ namespace Chip8
 
                         if (VideoRAM == null)
                         {
-                            pc += 2;
+                            PC += 2;
                             return;
                         }
 
@@ -471,7 +528,7 @@ namespace Chip8
                         }
 
                         Draw = true;
-                        pc += 2;
+                        PC += 2;
                     } break;
 
                 case 0xE000:
@@ -485,14 +542,14 @@ namespace Chip8
 
                                 if (Keyboard == null)
                                 {
-                                    pc += 2;
+                                    PC += 2;
                                     return;
                                 }
 
                                 if (Keyboard.GetKeyState(V[get_nibbles(opcode, (ushort)0x0F00, 8)]))
-                                    pc += 2;
+                                    PC += 2;
 
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // EXA1: Checks if the key with name in register VX is NOT pressed.
@@ -502,19 +559,19 @@ namespace Chip8
 
                                 if (Keyboard == null)
                                 {
-                                    pc += 2;
+                                    PC += 2;
                                     return;
                                 }
 
                                 if (!Keyboard.GetKeyState(V[get_nibbles(opcode, (ushort)0x0F00, 8)]))
-                                    pc += 2;
+                                    PC += 2;
 
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             default:
                                 Debug.Print("Unknown 0xE000 opcode 0x{0:X4}.", opcode.ToString());
-                                pc += 2;
+                                PC += 2;
                                 break;
                         }
                     } break;
@@ -527,8 +584,8 @@ namespace Chip8
                             case 0x0007:
                                 Debug.Print("LD V{0:X}, DT", get_nibbles(opcode, (ushort)0x0F00, 8).ToString());
 
-                                V[get_nibbles(opcode, (ushort)0x0F00, 8)] = delay_timer;
-                                pc += 2;
+                                V[get_nibbles(opcode, (ushort)0x0F00, 8)] = DelayTimer;
+                                PC += 2;
                                 break;
 
                             // FX0A: Wait for a key press, then store its name in register VX.
@@ -542,7 +599,7 @@ namespace Chip8
                                 if (Keyboard == null)
                                 {
                                     printed = false;
-                                    pc += 2;
+                                    PC += 2;
                                     return;
                                 }
 
@@ -556,26 +613,26 @@ namespace Chip8
                                 // Avoid getting the key "stuck" for an entire display refresh!
                                 Keyboard.ClearLastIndex();
 
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // FX15: Sets the delay timer to the value stored in register VX.
                             case 0x0015:
                                 Debug.Print("LD DT, V{0:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString());
 
-                                delay_timer = V[get_nibbles(opcode, (ushort)0x0F00, 8)];
-                                pc += 2;
+                                DelayTimer = V[get_nibbles(opcode, (ushort)0x0F00, 8)];
+                                PC += 2;
                                 break;
 
                             // FX18: Sets the sound timer to the value stored in register VX.
                             case 0x0018:
                                 Debug.Print("LD ST, V{0:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString());
 
-                                sound_timer = V[get_nibbles(opcode, (ushort)0x0F00, 8)];
+                                SoundTimer = V[get_nibbles(opcode, (ushort)0x0F00, 8)];
 
                                 // The sound should immedately start playing,
                                 // BUT only if the value is different from zero.
-                                if (sound_timer != 0)
+                                if (SoundTimer != 0)
                                 {
                                     playing = true;
 
@@ -583,7 +640,7 @@ namespace Chip8
                                         Buzzer.Play();
                                 }
 
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // FX1E: Adds the value of the register VX to I.
@@ -591,7 +648,7 @@ namespace Chip8
                                 Debug.Print("ADD I, V{0:X}", get_nibbles(opcode, (ushort)0x0F00, 8).ToString());
 
                                 I += V[get_nibbles(opcode, (ushort)0x0F00, 8)];
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // FX29: Sets I to the start of a predefined sprite's data.
@@ -602,7 +659,7 @@ namespace Chip8
 
                                 // As digits are 5 bytes long...
                                 I = (ushort)(5 * V[get_nibbles(opcode, (ushort)0x0F00, 8)]);
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // FX33: Store the BCD representation of VX in memory.
@@ -615,7 +672,7 @@ namespace Chip8
                                 MainRAM[I] = (byte)(V[get_nibbles(opcode, (ushort)0x0F00, 8)] / 100);
                                 MainRAM[I + 1] = (byte)((V[get_nibbles(opcode, (ushort)0x0F00, 8)] / 10) % 10);
                                 MainRAM[I + 2] = (byte)(V[get_nibbles(opcode, (ushort)0x0F00, 8)] % 10);
-                                pc += 2;
+                                PC += 2;
                                 break;
 
                             // FX55: Copy the values of registers V0 through VX in memory.
@@ -634,7 +691,7 @@ namespace Chip8
                                     if (ModifyI)
                                         I += (ushort)(noRegs + 1);
 
-                                    pc += 2;
+                                    PC += 2;
                                 } break;
 
                             // FX65: Populate registers V0 through VX with data in memory.
@@ -653,30 +710,30 @@ namespace Chip8
                                     if (ModifyI)
                                         I += (ushort)(noRegs + 1);
 
-                                    pc += 2;
+                                    PC += 2;
                                 } break;
 
                             default:
                                 Debug.Print("Unknown 0xF000 opcode 0x{0:X4}.", opcode.ToString());
-                                pc += 2;
+                                PC += 2;
                                 break;
                         }
                     } break;
 
                 default:
                     Debug.Print("Unknown opcode 0x{0:X4}.", opcode.ToString());
-                    pc += 2;
+                    PC += 2;
                     break;
             }
         }
 
         private void update_timers()
         {
-            if (delay_timer > 0)
-                --delay_timer;
+            if (DelayTimer > 0)
+                --DelayTimer;
 
-            if (sound_timer > 0)
-                --sound_timer;
+            if (SoundTimer > 0)
+                --SoundTimer;
             else if (playing)
             {
                 playing = false;
