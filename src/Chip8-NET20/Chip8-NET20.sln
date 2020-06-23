@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIControls", "UIControls\UI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notifiable", "Notifiable\Notifiable.csproj", "{E713CB4A-9A58-4FE3-AD10-346900205D32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAPI", "WindowsAPI\WindowsAPI.csproj", "{5DBE516F-C456-4C12-B71A-B5D7378F037B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{E713CB4A-9A58-4FE3-AD10-346900205D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E713CB4A-9A58-4FE3-AD10-346900205D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E713CB4A-9A58-4FE3-AD10-346900205D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DBE516F-C456-4C12-B71A-B5D7378F037B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DBE516F-C456-4C12-B71A-B5D7378F037B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DBE516F-C456-4C12-B71A-B5D7378F037B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DBE516F-C456-4C12-B71A-B5D7378F037B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

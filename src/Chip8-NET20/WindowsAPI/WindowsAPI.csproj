@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CE60B6D7-0A45-4B64-A10D-C3E59FBA33BD}</ProjectGuid>
+    <ProjectGuid>{5DBE516F-C456-4C12-B71A-B5D7378F037B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UIControls</RootNamespace>
-    <AssemblyName>UIControls</AssemblyName>
+    <RootNamespace>WindowsAPI</RootNamespace>
+    <AssemblyName>WindowsAPI</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,39 +30,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MemoryViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MemoryViewer.Designer.cs">
-      <DependentUpon>MemoryViewer.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Functions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MemoryViewer.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MemoryViewer.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Chip8\Chip8.csproj">
-      <Project>{6DF42952-CF2B-4275-8043-5853409D6082}</Project>
-      <Name>Chip8</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Generic\Generic.csproj">
-      <Project>{78B748FB-1D38-4158-AD2B-679D008E56C1}</Project>
-      <Name>Generic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WindowsAPI\WindowsAPI.csproj">
-      <Project>{5DBE516F-C456-4C12-B71A-B5D7378F037B}</Project>
-      <Name>WindowsAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

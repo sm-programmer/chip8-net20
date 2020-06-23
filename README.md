@@ -57,7 +57,9 @@ src\Chip8-NET20\UI-WinForms\bin\Release\
 ├── Chip8.dll
 ├── Display.dll
 ├── Generic.dll
+├── Notifiable.dll
 ├── UIControls.dll
+├── WindowsAPI.dll
 └── Chip8-NET20.exe
 ```
 

@@ -25,6 +25,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using Chip8;
+using WindowsAPI;
 
 namespace UIControls
 {
@@ -214,7 +215,15 @@ namespace UIControls
 
         private void adjustLineCountToHeight()
         {
-            VisibleLineCount = txtContents.ClientSize.Height / txtContents.Font.Height;
+            // Original metric: inaccurate.
+            // int clientHeight = txtContents.ClientSize.Height;
+
+            // New metric: Direct USER32.dll call (Windows API).
+            Functions.RECT r = new Functions.RECT();
+            Functions.SendMessage(txtContents.Handle, Functions.EM_GETRECT, IntPtr.Zero, ref r);
+            int clientHeight = r.Bottom - r.Top;
+            
+            VisibleLineCount = clientHeight / txtContents.Font.Height;
 
             vScrollBar.LargeChange = VisibleLineCount;
 
