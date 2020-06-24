@@ -51,7 +51,7 @@ namespace Chip8_NET20
             this.grpOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpOptions.Location = new System.Drawing.Point(0, 0);
             this.grpOptions.Name = "grpOptions";
-            this.grpOptions.Size = new System.Drawing.Size(312, 75);
+            this.grpOptions.Size = new System.Drawing.Size(312, 77);
             this.grpOptions.TabIndex = 0;
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Options";
@@ -139,9 +139,10 @@ namespace Chip8_NET20
             this.memViewer.BytesPerLine = 8;
             this.memViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.memViewer.FirstLine = 0;
-            this.memViewer.Location = new System.Drawing.Point(0, 75);
+            this.memViewer.Location = new System.Drawing.Point(0, 77);
             this.memViewer.Name = "memViewer";
-            this.memViewer.Size = new System.Drawing.Size(312, 141);
+            this.memViewer.Size = new System.Drawing.Size(312, 139);
+            this.memViewer.Source = null;
             this.memViewer.TabIndex = 2;
             this.memViewer.VisibleLineCount = 7;
             this.memViewer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.memViewer_PropertyChanged);

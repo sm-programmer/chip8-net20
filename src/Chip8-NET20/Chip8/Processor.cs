@@ -84,7 +84,12 @@ namespace Chip8
             }
         }
 
-        private List<ushort> stack;
+        private NotifiableList<ushort> _stack;
+        public NotifiableList<ushort> Stack
+        {
+            get { return _stack; }
+            private set { _stack = value; }
+        }
 
         private NotifiableList<byte> _v;
         public NotifiableList<byte> V
@@ -145,9 +150,9 @@ namespace Chip8
             printed = false;
             playing = false;
 
-            stack = new List<ushort>();
+            Stack = new NotifiableList<ushort>();
             for (int i = 0; i < 16; i++)
-                stack.Add(0);
+                Stack.Add(0);
 
             V = new NotifiableList<byte>();
             for (int i = 0; i < 16; i++)
@@ -167,7 +172,7 @@ namespace Chip8
 
             // Clear stack and registers.
             for (int i = 0; i < 16; i++)
-                stack[i] = 0;
+                Stack[i] = 0;
             for (int i = 0; i < 16; i++)
                 V[i] = 0;
 
@@ -231,7 +236,7 @@ namespace Chip8
                                 if (SP == 0)
                                     throw new Exception("Stack underflow.");
 
-                                PC = stack[--SP];
+                                PC = Stack[--SP];
                                 PC += 2;
                                 break;
 
@@ -256,7 +261,7 @@ namespace Chip8
                     if (SP == 15)
                         throw new Exception("Stack overflow.");
 
-                    stack[SP++] = PC;
+                    Stack[SP++] = PC;
                     PC = get_nibbles(opcode, (ushort)0x0FFF);
                     break;
 

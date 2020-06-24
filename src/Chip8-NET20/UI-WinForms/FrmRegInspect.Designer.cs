@@ -743,8 +743,8 @@ namespace Chip8_NET20
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Register inspector";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmRegInspect_FormClosing);
             this.Load += new System.EventHandler(this.FrmRegInspect_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmRegInspect_FormClosing);
             this.grpGeneral.ResumeLayout(false);
             this.tlpGeneral.ResumeLayout(false);
             this.tlpGeneral.PerformLayout();

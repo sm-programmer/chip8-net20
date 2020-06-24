@@ -48,6 +48,7 @@ namespace Chip8_NET20
 
         private FrmMemViewer frmMemViewer;
         private FrmRegInspect frmRegInspect;
+        private FrmStackViewer frmStackViewer;
 
         public FrmMain()
         {
@@ -82,6 +83,9 @@ namespace Chip8_NET20
 
             frmRegInspect = new FrmRegInspect();
             frmRegInspect.Source = comp;
+
+            frmStackViewer = new FrmStackViewer();
+            frmStackViewer.Source = comp;
         }
 
         private void init_computer()
@@ -276,6 +280,14 @@ namespace Chip8_NET20
                 frmRegInspect.Show(this);
             else
                 frmRegInspect.Focus();
+        }
+
+        private void itemDevStackViewer_Click(object sender, EventArgs e)
+        {
+            if (!frmStackViewer.Visible)
+                frmStackViewer.Show(this);
+            else
+                frmStackViewer.Focus();
         }
 
         private void itemAbout_Click(object sender, EventArgs e)

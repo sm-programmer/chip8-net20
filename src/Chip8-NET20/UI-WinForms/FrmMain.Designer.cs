@@ -67,8 +67,9 @@ namespace Chip8_NET20
             this.tsContainer = new System.Windows.Forms.ToolStripContainer();
             this.disp = new Display.DisplayUI();
             this.toolBar = new System.Windows.Forms.ToolStrip();
-            this.btnLoadProg = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.itemDevStackViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLoadProg = new System.Windows.Forms.ToolStripButton();
             this.btnStart = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.btnColdReset = new System.Windows.Forms.ToolStripButton();
@@ -327,7 +328,8 @@ namespace Chip8_NET20
             // 
             this.menuDev.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemDevMemViewer,
-            this.itemDevRegInspect});
+            this.itemDevRegInspect,
+            this.itemDevStackViewer});
             this.menuDev.Name = "menuDev";
             this.menuDev.Size = new System.Drawing.Size(68, 20);
             this.menuDev.Text = "&Developer";
@@ -432,6 +434,20 @@ namespace Chip8_NET20
             this.toolBar.TabIndex = 4;
             this.toolBar.Text = "toolStrip1";
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 39);
+            // 
+            // itemDevStackViewer
+            // 
+            this.itemDevStackViewer.Enabled = false;
+            this.itemDevStackViewer.Name = "itemDevStackViewer";
+            this.itemDevStackViewer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.itemDevStackViewer.Size = new System.Drawing.Size(211, 22);
+            this.itemDevStackViewer.Text = "&Stack viewer";
+            this.itemDevStackViewer.Click += new System.EventHandler(this.itemDevStackViewer_Click);
+            // 
             // btnLoadProg
             // 
             this.btnLoadProg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -442,11 +458,6 @@ namespace Chip8_NET20
             this.btnLoadProg.Text = "toolStripButton1";
             this.btnLoadProg.ToolTipText = "Load program...";
             this.btnLoadProg.Click += new System.EventHandler(this.OnLoadProgram);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 39);
             // 
             // btnStart
             // 
@@ -570,6 +581,7 @@ namespace Chip8_NET20
         private System.Windows.Forms.ToolStripMenuItem menuDev;
         private System.Windows.Forms.ToolStripMenuItem itemDevMemViewer;
         private System.Windows.Forms.ToolStripMenuItem itemDevRegInspect;
+        private System.Windows.Forms.ToolStripMenuItem itemDevStackViewer;
     }
 }
 

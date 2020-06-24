@@ -60,6 +60,12 @@
     <Compile Include="FrmRegInspect.Designer.cs">
       <DependentUpon>FrmRegInspect.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmStackViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmStackViewer.Designer.cs">
+      <DependentUpon>FrmStackViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Icons.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,6 +88,10 @@
     <EmbeddedResource Include="FrmRegInspect.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FrmRegInspect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmStackViewer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmStackViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Icons.resx">
       <SubType>Designer</SubType>
