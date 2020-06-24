@@ -20,6 +20,8 @@ Features
     - Selectable behavior of `I` register on instructions `FX55` and `FX65`.
 * Developer tools.
     - Memory viewer.
+    - Register inspector.
+    - Stack viewer.
 
 How to build
 ------------
@@ -68,9 +70,9 @@ Any other files not included in this tree may be safely removed.
 Planned
 -------
 
+* User controls.
+    - Cycle-step (one processor cycle per invocation).
 * Developer tools.
-    - Register inspector.
-    - Stack viewer.
     - Disassembler. (Long term)
 * Customizable configuration.
     - Screen background and foreground colors.
