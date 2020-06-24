@@ -185,8 +185,12 @@ namespace Chip8
             if (mem == null)
                 return;
 
+            byte[] newContents = new byte[mem.Size];
+
             for (int i = 0; i < mem.Size; i++)
-                mem[i] = (byte) ((rnd.Next(10) < 3) ? 1 : 0);
+                newContents[i] = (byte) ((rnd.Next(10) < 3) ? 1 : 0);
+
+            mem.SetRange(newContents, 0);
         }
     }
 }

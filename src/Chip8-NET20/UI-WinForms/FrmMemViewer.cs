@@ -37,6 +37,30 @@ namespace Chip8_NET20
             set { _comp = value; }
         }
 
+        private Memory _use = null;
+        private Memory CurrentMemory
+        {
+            get { return _use; }
+            set
+            {
+                if (_use != null && chkAutoUpdate.Checked)
+                {
+                    _use.MemoryModified -= Memory_MemoryModified;
+                    _use.MemoryRangeModified -= Memory_MemoryRangeModified;
+                }
+
+                _use = value;
+
+                if (_use != null && chkAutoUpdate.Checked)
+                {
+                    _use.MemoryModified += new Generic.MemoryModifiedEventHandler(Memory_MemoryModified);
+                    _use.MemoryRangeModified += new Generic.MemoryRangeModifiedEventHandler(Memory_MemoryRangeModified);
+                }
+
+                memViewer.Source = _use;
+            }
+        }
+
         public FrmMemViewer()
         {
             InitializeComponent();
@@ -72,6 +96,11 @@ namespace Chip8_NET20
                 e.Cancel = true;
                 Hide();
             }
+            else
+            {
+                if (chkAutoUpdate.Checked)
+                    chkAutoUpdate.Checked = false;
+            }
         }
 
         private void cbMemType_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,12 +113,12 @@ namespace Chip8_NET20
             {
                 // Main memory
                 case 0:
-                    memViewer.Source = (Memory)Source.Memory;
+                    CurrentMemory = (Memory)Source.Memory;
                     break;
                 
                 // Video memory
                 case 1:
-                    memViewer.Source = (Memory)Source.Screen.VideoRAM;
+                    CurrentMemory = (Memory)Source.Screen.VideoRAM;
                     break;
             }
         }
@@ -120,6 +149,37 @@ namespace Chip8_NET20
                 return;
 
             memViewer.BytesPerLine = Decimal.ToInt32(nudNoBytes.Value);
+        }
+
+        private void chkAutoUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            btnUpdate.Enabled = !chkAutoUpdate.Checked;
+
+            if (chkAutoUpdate.Checked)
+            {
+                CurrentMemory.MemoryModified += new Generic.MemoryModifiedEventHandler(Memory_MemoryModified);
+                CurrentMemory.MemoryRangeModified += new Generic.MemoryRangeModifiedEventHandler(Memory_MemoryRangeModified);
+            }
+            else
+            {
+                CurrentMemory.MemoryModified -= Memory_MemoryModified;
+                CurrentMemory.MemoryRangeModified -= Memory_MemoryRangeModified;
+            }
+        }
+
+        private void Memory_MemoryModified(object sender, Generic.MemoryModifiedEventArgs e)
+        {
+            memViewer.RefreshContents();
+        }
+
+        private void Memory_MemoryRangeModified(object sender, Generic.MemoryRangeModifiedEventArgs e)
+        {
+            memViewer.RefreshContents();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            memViewer.RefreshContents();
         }
     }
 }

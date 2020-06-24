@@ -66,17 +66,10 @@ namespace UIControls
         private Memory _src = null;
         public Memory Source
         {
-            private get { return _src; }
+            get { return _src; }
             set
             {
-                if (_src != null)
-                    _src.MemoryRangeModified -= memRangeModified;
-
                 _src = value;
-
-                if (_src != null)
-                    _src.MemoryRangeModified += memRangeModified;
-
                 dumpMemory(_src);
             }
         }
@@ -114,8 +107,6 @@ namespace UIControls
             }
         }
 
-        private Generic.MemoryRangeModifiedEventHandler memRangeModified;
-
         private StringBuilder sb;
         private List<string> lines;
 
@@ -130,9 +121,12 @@ namespace UIControls
             sb = new StringBuilder();
             lines = new List<string>();
 
-            memRangeModified = new Generic.MemoryRangeModifiedEventHandler(Source_MemoryRangeModified);
-
             adjustDimensions();
+        }
+
+        public void RefreshContents()
+        {
+            dumpMemory(Source);
         }
 
         private void dumpMemory(Memory src)
@@ -296,11 +290,6 @@ namespace UIControls
                     vScrollBar.Value += Math.Min(vScrollBar.LargeChange, lines.Count - 1 - vScrollBar.Value);
                     break;
             }
-        }
-
-        private void Source_MemoryRangeModified(object sender)
-        {
-            dumpMemory(Source);
         }
     }
 }

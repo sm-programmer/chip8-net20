@@ -49,24 +49,10 @@ namespace Chip8_NET20
             private get { return _comp; }
             set
             {
-                Processor proc = null;
-
-                if (_comp != null)
-                {
-                    proc = (Processor) Source.Processor;
-                    proc.PropertyChanged -= OnCounterOrTimerChanged;
-                    proc.V.ItemReplaced -= OnRegisterChanged;
-                }
-
                 _comp = value;
 
                 if (_comp != null)
-                {
-                    proc = (Processor) Source.Processor;
-                    proc.PropertyChanged += new PropertyChangedEventHandler(OnCounterOrTimerChanged);
-                    proc.V.ItemReplaced += new NotifiableList<byte>.ItemStatusEventHandler(OnRegisterChanged);
                     updateAll();
-                }
             }
         }
 
@@ -172,8 +158,8 @@ namespace Chip8_NET20
             }
             else
             {
-                if (Source != null)
-                    Source = null;
+                if (chkAutoUpdate.Checked)
+                    chkAutoUpdate.Checked = false;
             }
         }
 
@@ -203,6 +189,29 @@ namespace Chip8_NET20
         private void OnRegisterChanged(object sender, ItemStatusEventArgs<byte> e)
         {
             updateRegister(e.Index);
+        }
+
+        private void chkAutoUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            Processor proc = (Processor) Source.Processor;
+
+            btnUpdate.Enabled = !chkAutoUpdate.Checked;
+
+            if (chkAutoUpdate.Checked)
+            {
+                proc.PropertyChanged += new PropertyChangedEventHandler(OnCounterOrTimerChanged);
+                proc.V.ItemReplaced += new NotifiableList<byte>.ItemStatusEventHandler(OnRegisterChanged);
+            }
+            else
+            {
+                proc.PropertyChanged -= OnCounterOrTimerChanged;
+                proc.V.ItemReplaced -= OnRegisterChanged;
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            updateAll();
         }
     }
 }

@@ -38,6 +38,7 @@
     <Compile Include="Display.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Memory.cs" />
+    <Compile Include="Events\MemoryModifiedEventArgs.cs" />
     <Compile Include="Oscillator.cs">
     </Compile>
     <Compile Include="Processor.cs" />
@@ -49,6 +50,9 @@
       <Project>{E713CB4A-9A58-4FE3-AD10-346900205D32}</Project>
       <Name>Notifiable</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events\MemoryRangeModifiedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

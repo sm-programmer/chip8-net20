@@ -29,13 +29,13 @@ namespace Chip8_NET20
         private void InitializeComponent()
         {
             this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.nudNoBytes = new System.Windows.Forms.NumericUpDown();
             this.chkManualSize = new System.Windows.Forms.CheckBox();
             this.cbMemType = new System.Windows.Forms.ComboBox();
             this.lblMemType = new System.Windows.Forms.Label();
             this.memViewer = new UIControls.MemoryViewer();
-            this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.grpOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNoBytes)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +55,29 @@ namespace Chip8_NET20
             this.grpOptions.TabIndex = 0;
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Options";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.Location = new System.Drawing.Point(225, 44);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.Text = "&Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // chkAutoUpdate
+            // 
+            this.chkAutoUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAutoUpdate.AutoSize = true;
+            this.chkAutoUpdate.Location = new System.Drawing.Point(135, 48);
+            this.chkAutoUpdate.Name = "chkAutoUpdate";
+            this.chkAutoUpdate.Size = new System.Drawing.Size(84, 17);
+            this.chkAutoUpdate.TabIndex = 4;
+            this.chkAutoUpdate.Text = "&Auto update";
+            this.chkAutoUpdate.UseVisualStyleBackColor = true;
+            this.chkAutoUpdate.CheckedChanged += new System.EventHandler(this.chkAutoUpdate_CheckedChanged);
             // 
             // nudNoBytes
             // 
@@ -120,28 +143,8 @@ namespace Chip8_NET20
             this.memViewer.Name = "memViewer";
             this.memViewer.Size = new System.Drawing.Size(312, 141);
             this.memViewer.TabIndex = 2;
+            this.memViewer.VisibleLineCount = 7;
             this.memViewer.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(this.memViewer_PropertyChanged);
-            // 
-            // chkAutoUpdate
-            // 
-            this.chkAutoUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkAutoUpdate.AutoSize = true;
-            this.chkAutoUpdate.Location = new System.Drawing.Point(135, 48);
-            this.chkAutoUpdate.Name = "chkAutoUpdate";
-            this.chkAutoUpdate.Size = new System.Drawing.Size(84, 17);
-            this.chkAutoUpdate.TabIndex = 4;
-            this.chkAutoUpdate.Text = "&Auto update";
-            this.chkAutoUpdate.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(225, 44);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdate.TabIndex = 5;
-            this.btnUpdate.Text = "&Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
             // 
             // FrmMemViewer
             // 

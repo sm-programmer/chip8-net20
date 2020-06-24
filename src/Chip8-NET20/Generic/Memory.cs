@@ -20,12 +20,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-//using Notifiable;
-
 namespace Generic
 {
-    public delegate void MemoryModifiedEventHandler(object sender);
-    public delegate void MemoryRangeModifiedEventHandler(object sender);
+    public delegate void MemoryModifiedEventHandler(object sender, MemoryModifiedEventArgs e);
+    public delegate void MemoryRangeModifiedEventHandler(object sender, MemoryRangeModifiedEventArgs e);
 
     public class Memory
     {
@@ -127,6 +125,8 @@ namespace Generic
         {
             for (int i = start; i < Size; i++)
                 Data[i] = value;
+
+            OnMemoryRangeModified(start, Size - 1);
         }
 
         public void SetRange(byte[] range, int start)
@@ -134,7 +134,7 @@ namespace Generic
             if (start < 0 || start >= Size)
                 throw new Exception("Start position is out of bounds.");
 
-            if (start + range.Length >= Size)
+            if (start + range.Length > Size)
                 throw new Exception("Byte data is too large.");
 
             for (int i = 0; i < range.Length; i++)
@@ -143,18 +143,28 @@ namespace Generic
             OnMemoryRangeModified(start, start + range.Length - 1);
         }
 
-        private void OnMemoryModified(int index, byte value)
+        private void OnMemoryModified(MemoryModifiedEventArgs e)
         {
             MemoryModifiedEventHandler handler = MemoryModified;
             if (handler != null)
-                handler(this);
+                handler(this, e);
+        }
+
+        private void OnMemoryRangeModified(MemoryRangeModifiedEventArgs e)
+        {
+            MemoryRangeModifiedEventHandler handler = MemoryRangeModified;
+            if (handler != null)
+                handler(this, e);
+        }
+
+        private void OnMemoryModified(int index, byte value)
+        {
+            OnMemoryModified(new MemoryModifiedEventArgs(index, value));
         }
 
         private void OnMemoryRangeModified(int start, int end)
         {
-            MemoryRangeModifiedEventHandler handler = MemoryRangeModified;
-            if (handler != null)
-                handler(this);
+            OnMemoryRangeModified(new MemoryRangeModifiedEventArgs(start, end));
         }
     }
 }

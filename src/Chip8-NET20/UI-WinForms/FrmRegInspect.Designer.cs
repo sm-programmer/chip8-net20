@@ -77,6 +77,9 @@ namespace Chip8_NET20
             this.lblV1 = new System.Windows.Forms.Label();
             this.lblV0 = new System.Windows.Forms.Label();
             this.txtV0 = new System.Windows.Forms.TextBox();
+            this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.chkAutoUpdate = new System.Windows.Forms.CheckBox();
             this.grpGeneral.SuspendLayout();
             this.tlpGeneral.SuspendLayout();
             this.tlpMain.SuspendLayout();
@@ -84,15 +87,16 @@ namespace Chip8_NET20
             this.tlpTimers.SuspendLayout();
             this.grpRegs.SuspendLayout();
             this.tlpRegs.SuspendLayout();
+            this.grpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpGeneral
             // 
             this.grpGeneral.Controls.Add(this.tlpGeneral);
             this.grpGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpGeneral.Location = new System.Drawing.Point(3, 3);
+            this.grpGeneral.Location = new System.Drawing.Point(3, 58);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(230, 81);
+            this.grpGeneral.Size = new System.Drawing.Size(230, 77);
             this.grpGeneral.TabIndex = 0;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
@@ -115,7 +119,7 @@ namespace Chip8_NET20
             this.tlpGeneral.RowCount = 2;
             this.tlpGeneral.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpGeneral.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpGeneral.Size = new System.Drawing.Size(224, 62);
+            this.tlpGeneral.Size = new System.Drawing.Size(224, 58);
             this.tlpGeneral.TabIndex = 6;
             // 
             // lblPC
@@ -124,7 +128,7 @@ namespace Chip8_NET20
             this.lblPC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPC.Location = new System.Drawing.Point(3, 0);
             this.lblPC.Name = "lblPC";
-            this.lblPC.Size = new System.Drawing.Size(68, 31);
+            this.lblPC.Size = new System.Drawing.Size(68, 29);
             this.lblPC.TabIndex = 0;
             this.lblPC.Text = "PC";
             this.lblPC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -132,7 +136,7 @@ namespace Chip8_NET20
             // txtI
             // 
             this.txtI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtI.Location = new System.Drawing.Point(151, 34);
+            this.txtI.Location = new System.Drawing.Point(151, 32);
             this.txtI.MaxLength = 6;
             this.txtI.Name = "txtI";
             this.txtI.ReadOnly = true;
@@ -146,7 +150,7 @@ namespace Chip8_NET20
             this.lblSP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSP.Location = new System.Drawing.Point(77, 0);
             this.lblSP.Name = "lblSP";
-            this.lblSP.Size = new System.Drawing.Size(68, 31);
+            this.lblSP.Size = new System.Drawing.Size(68, 29);
             this.lblSP.TabIndex = 1;
             this.lblSP.Text = "SP";
             this.lblSP.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -154,7 +158,7 @@ namespace Chip8_NET20
             // txtSP
             // 
             this.txtSP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSP.Location = new System.Drawing.Point(77, 34);
+            this.txtSP.Location = new System.Drawing.Point(77, 32);
             this.txtSP.MaxLength = 6;
             this.txtSP.Name = "txtSP";
             this.txtSP.ReadOnly = true;
@@ -168,7 +172,7 @@ namespace Chip8_NET20
             this.lblI.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblI.Location = new System.Drawing.Point(151, 0);
             this.lblI.Name = "lblI";
-            this.lblI.Size = new System.Drawing.Size(70, 31);
+            this.lblI.Size = new System.Drawing.Size(70, 29);
             this.lblI.TabIndex = 2;
             this.lblI.Text = "I";
             this.lblI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -176,7 +180,7 @@ namespace Chip8_NET20
             // txtPC
             // 
             this.txtPC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPC.Location = new System.Drawing.Point(3, 34);
+            this.txtPC.Location = new System.Drawing.Point(3, 32);
             this.txtPC.MaxLength = 6;
             this.txtPC.Name = "txtPC";
             this.txtPC.ReadOnly = true;
@@ -189,25 +193,27 @@ namespace Chip8_NET20
             this.tlpMain.ColumnCount = 2;
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tlpMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tlpMain.Controls.Add(this.grpGeneral, 0, 0);
-            this.tlpMain.Controls.Add(this.grpTimers, 1, 0);
-            this.tlpMain.Controls.Add(this.grpRegs, 0, 1);
+            this.tlpMain.Controls.Add(this.grpGeneral, 0, 1);
+            this.tlpMain.Controls.Add(this.grpTimers, 1, 1);
+            this.tlpMain.Controls.Add(this.grpRegs, 0, 2);
+            this.tlpMain.Controls.Add(this.grpOptions, 0, 0);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpMain.Location = new System.Drawing.Point(0, 0);
             this.tlpMain.Name = "tlpMain";
-            this.tlpMain.RowCount = 2;
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tlpMain.Size = new System.Drawing.Size(394, 218);
+            this.tlpMain.RowCount = 3;
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpMain.Size = new System.Drawing.Size(394, 278);
             this.tlpMain.TabIndex = 1;
             // 
             // grpTimers
             // 
             this.grpTimers.Controls.Add(this.tlpTimers);
             this.grpTimers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpTimers.Location = new System.Drawing.Point(239, 3);
+            this.grpTimers.Location = new System.Drawing.Point(239, 58);
             this.grpTimers.Name = "grpTimers";
-            this.grpTimers.Size = new System.Drawing.Size(152, 81);
+            this.grpTimers.Size = new System.Drawing.Size(152, 77);
             this.grpTimers.TabIndex = 1;
             this.grpTimers.TabStop = false;
             this.grpTimers.Text = "Timers";
@@ -227,7 +233,7 @@ namespace Chip8_NET20
             this.tlpTimers.RowCount = 2;
             this.tlpTimers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpTimers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpTimers.Size = new System.Drawing.Size(146, 62);
+            this.tlpTimers.Size = new System.Drawing.Size(146, 58);
             this.tlpTimers.TabIndex = 4;
             // 
             // lblDelay
@@ -236,7 +242,7 @@ namespace Chip8_NET20
             this.lblDelay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDelay.Location = new System.Drawing.Point(3, 0);
             this.lblDelay.Name = "lblDelay";
-            this.lblDelay.Size = new System.Drawing.Size(67, 31);
+            this.lblDelay.Size = new System.Drawing.Size(67, 29);
             this.lblDelay.TabIndex = 2;
             this.lblDelay.Text = "Delay";
             this.lblDelay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -244,7 +250,7 @@ namespace Chip8_NET20
             // txtSound
             // 
             this.txtSound.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSound.Location = new System.Drawing.Point(76, 34);
+            this.txtSound.Location = new System.Drawing.Point(76, 32);
             this.txtSound.MaxLength = 6;
             this.txtSound.Name = "txtSound";
             this.txtSound.ReadOnly = true;
@@ -258,7 +264,7 @@ namespace Chip8_NET20
             this.lblSound.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSound.Location = new System.Drawing.Point(76, 0);
             this.lblSound.Name = "lblSound";
-            this.lblSound.Size = new System.Drawing.Size(67, 31);
+            this.lblSound.Size = new System.Drawing.Size(67, 29);
             this.lblSound.TabIndex = 3;
             this.lblSound.Text = "Sound";
             this.lblSound.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -266,7 +272,7 @@ namespace Chip8_NET20
             // txtDelay
             // 
             this.txtDelay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDelay.Location = new System.Drawing.Point(3, 34);
+            this.txtDelay.Location = new System.Drawing.Point(3, 32);
             this.txtDelay.MaxLength = 6;
             this.txtDelay.Name = "txtDelay";
             this.txtDelay.ReadOnly = true;
@@ -279,9 +285,9 @@ namespace Chip8_NET20
             this.tlpMain.SetColumnSpan(this.grpRegs, 2);
             this.grpRegs.Controls.Add(this.tlpRegs);
             this.grpRegs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpRegs.Location = new System.Drawing.Point(3, 90);
+            this.grpRegs.Location = new System.Drawing.Point(3, 141);
             this.grpRegs.Name = "grpRegs";
-            this.grpRegs.Size = new System.Drawing.Size(388, 125);
+            this.grpRegs.Size = new System.Drawing.Size(388, 134);
             this.grpRegs.TabIndex = 2;
             this.grpRegs.TabStop = false;
             this.grpRegs.Text = "Registers";
@@ -337,13 +343,13 @@ namespace Chip8_NET20
             this.tlpRegs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpRegs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpRegs.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpRegs.Size = new System.Drawing.Size(382, 106);
+            this.tlpRegs.Size = new System.Drawing.Size(382, 115);
             this.tlpRegs.TabIndex = 0;
             // 
             // txtVF
             // 
             this.txtVF.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVF.Location = new System.Drawing.Point(332, 81);
+            this.txtVF.Location = new System.Drawing.Point(332, 87);
             this.txtVF.MaxLength = 4;
             this.txtVF.Name = "txtVF";
             this.txtVF.ReadOnly = true;
@@ -354,7 +360,7 @@ namespace Chip8_NET20
             // txtVE
             // 
             this.txtVE.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVE.Location = new System.Drawing.Point(285, 81);
+            this.txtVE.Location = new System.Drawing.Point(285, 87);
             this.txtVE.MaxLength = 4;
             this.txtVE.Name = "txtVE";
             this.txtVE.ReadOnly = true;
@@ -365,7 +371,7 @@ namespace Chip8_NET20
             // txtVD
             // 
             this.txtVD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVD.Location = new System.Drawing.Point(238, 81);
+            this.txtVD.Location = new System.Drawing.Point(238, 87);
             this.txtVD.MaxLength = 4;
             this.txtVD.Name = "txtVD";
             this.txtVD.ReadOnly = true;
@@ -376,7 +382,7 @@ namespace Chip8_NET20
             // txtVC
             // 
             this.txtVC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVC.Location = new System.Drawing.Point(191, 81);
+            this.txtVC.Location = new System.Drawing.Point(191, 87);
             this.txtVC.MaxLength = 4;
             this.txtVC.Name = "txtVC";
             this.txtVC.ReadOnly = true;
@@ -387,7 +393,7 @@ namespace Chip8_NET20
             // txtVB
             // 
             this.txtVB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVB.Location = new System.Drawing.Point(144, 81);
+            this.txtVB.Location = new System.Drawing.Point(144, 87);
             this.txtVB.MaxLength = 4;
             this.txtVB.Name = "txtVB";
             this.txtVB.ReadOnly = true;
@@ -398,7 +404,7 @@ namespace Chip8_NET20
             // txtVA
             // 
             this.txtVA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtVA.Location = new System.Drawing.Point(97, 81);
+            this.txtVA.Location = new System.Drawing.Point(97, 87);
             this.txtVA.MaxLength = 4;
             this.txtVA.Name = "txtVA";
             this.txtVA.ReadOnly = true;
@@ -409,7 +415,7 @@ namespace Chip8_NET20
             // txtV9
             // 
             this.txtV9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV9.Location = new System.Drawing.Point(50, 81);
+            this.txtV9.Location = new System.Drawing.Point(50, 87);
             this.txtV9.MaxLength = 4;
             this.txtV9.Name = "txtV9";
             this.txtV9.ReadOnly = true;
@@ -420,7 +426,7 @@ namespace Chip8_NET20
             // txtV8
             // 
             this.txtV8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV8.Location = new System.Drawing.Point(3, 81);
+            this.txtV8.Location = new System.Drawing.Point(3, 87);
             this.txtV8.MaxLength = 4;
             this.txtV8.Name = "txtV8";
             this.txtV8.ReadOnly = true;
@@ -432,9 +438,9 @@ namespace Chip8_NET20
             // 
             this.lblVF.AutoSize = true;
             this.lblVF.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVF.Location = new System.Drawing.Point(332, 52);
+            this.lblVF.Location = new System.Drawing.Point(332, 56);
             this.lblVF.Name = "lblVF";
-            this.lblVF.Size = new System.Drawing.Size(47, 26);
+            this.lblVF.Size = new System.Drawing.Size(47, 28);
             this.lblVF.TabIndex = 23;
             this.lblVF.Text = "VF";
             this.lblVF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -443,9 +449,9 @@ namespace Chip8_NET20
             // 
             this.lblVE.AutoSize = true;
             this.lblVE.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVE.Location = new System.Drawing.Point(285, 52);
+            this.lblVE.Location = new System.Drawing.Point(285, 56);
             this.lblVE.Name = "lblVE";
-            this.lblVE.Size = new System.Drawing.Size(41, 26);
+            this.lblVE.Size = new System.Drawing.Size(41, 28);
             this.lblVE.TabIndex = 22;
             this.lblVE.Text = "VE";
             this.lblVE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -454,9 +460,9 @@ namespace Chip8_NET20
             // 
             this.lblVD.AutoSize = true;
             this.lblVD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVD.Location = new System.Drawing.Point(238, 52);
+            this.lblVD.Location = new System.Drawing.Point(238, 56);
             this.lblVD.Name = "lblVD";
-            this.lblVD.Size = new System.Drawing.Size(41, 26);
+            this.lblVD.Size = new System.Drawing.Size(41, 28);
             this.lblVD.TabIndex = 21;
             this.lblVD.Text = "VD";
             this.lblVD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -465,9 +471,9 @@ namespace Chip8_NET20
             // 
             this.lblVC.AutoSize = true;
             this.lblVC.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVC.Location = new System.Drawing.Point(191, 52);
+            this.lblVC.Location = new System.Drawing.Point(191, 56);
             this.lblVC.Name = "lblVC";
-            this.lblVC.Size = new System.Drawing.Size(41, 26);
+            this.lblVC.Size = new System.Drawing.Size(41, 28);
             this.lblVC.TabIndex = 20;
             this.lblVC.Text = "VC";
             this.lblVC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -476,9 +482,9 @@ namespace Chip8_NET20
             // 
             this.lblVB.AutoSize = true;
             this.lblVB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVB.Location = new System.Drawing.Point(144, 52);
+            this.lblVB.Location = new System.Drawing.Point(144, 56);
             this.lblVB.Name = "lblVB";
-            this.lblVB.Size = new System.Drawing.Size(41, 26);
+            this.lblVB.Size = new System.Drawing.Size(41, 28);
             this.lblVB.TabIndex = 19;
             this.lblVB.Text = "VB";
             this.lblVB.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -487,9 +493,9 @@ namespace Chip8_NET20
             // 
             this.lblVA.AutoSize = true;
             this.lblVA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVA.Location = new System.Drawing.Point(97, 52);
+            this.lblVA.Location = new System.Drawing.Point(97, 56);
             this.lblVA.Name = "lblVA";
-            this.lblVA.Size = new System.Drawing.Size(41, 26);
+            this.lblVA.Size = new System.Drawing.Size(41, 28);
             this.lblVA.TabIndex = 18;
             this.lblVA.Text = "VA";
             this.lblVA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -498,9 +504,9 @@ namespace Chip8_NET20
             // 
             this.lblV9.AutoSize = true;
             this.lblV9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblV9.Location = new System.Drawing.Point(50, 52);
+            this.lblV9.Location = new System.Drawing.Point(50, 56);
             this.lblV9.Name = "lblV9";
-            this.lblV9.Size = new System.Drawing.Size(41, 26);
+            this.lblV9.Size = new System.Drawing.Size(41, 28);
             this.lblV9.TabIndex = 17;
             this.lblV9.Text = "V9";
             this.lblV9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -509,9 +515,9 @@ namespace Chip8_NET20
             // 
             this.lblV8.AutoSize = true;
             this.lblV8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblV8.Location = new System.Drawing.Point(3, 52);
+            this.lblV8.Location = new System.Drawing.Point(3, 56);
             this.lblV8.Name = "lblV8";
-            this.lblV8.Size = new System.Drawing.Size(41, 26);
+            this.lblV8.Size = new System.Drawing.Size(41, 28);
             this.lblV8.TabIndex = 16;
             this.lblV8.Text = "V8";
             this.lblV8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -519,7 +525,7 @@ namespace Chip8_NET20
             // txtV7
             // 
             this.txtV7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV7.Location = new System.Drawing.Point(332, 29);
+            this.txtV7.Location = new System.Drawing.Point(332, 31);
             this.txtV7.MaxLength = 4;
             this.txtV7.Name = "txtV7";
             this.txtV7.ReadOnly = true;
@@ -530,7 +536,7 @@ namespace Chip8_NET20
             // txtV6
             // 
             this.txtV6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV6.Location = new System.Drawing.Point(285, 29);
+            this.txtV6.Location = new System.Drawing.Point(285, 31);
             this.txtV6.MaxLength = 4;
             this.txtV6.Name = "txtV6";
             this.txtV6.ReadOnly = true;
@@ -541,7 +547,7 @@ namespace Chip8_NET20
             // txtV5
             // 
             this.txtV5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV5.Location = new System.Drawing.Point(238, 29);
+            this.txtV5.Location = new System.Drawing.Point(238, 31);
             this.txtV5.MaxLength = 4;
             this.txtV5.Name = "txtV5";
             this.txtV5.ReadOnly = true;
@@ -552,7 +558,7 @@ namespace Chip8_NET20
             // txtV4
             // 
             this.txtV4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV4.Location = new System.Drawing.Point(191, 29);
+            this.txtV4.Location = new System.Drawing.Point(191, 31);
             this.txtV4.MaxLength = 4;
             this.txtV4.Name = "txtV4";
             this.txtV4.ReadOnly = true;
@@ -563,7 +569,7 @@ namespace Chip8_NET20
             // txtV3
             // 
             this.txtV3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV3.Location = new System.Drawing.Point(144, 29);
+            this.txtV3.Location = new System.Drawing.Point(144, 31);
             this.txtV3.MaxLength = 4;
             this.txtV3.Name = "txtV3";
             this.txtV3.ReadOnly = true;
@@ -574,7 +580,7 @@ namespace Chip8_NET20
             // txtV2
             // 
             this.txtV2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV2.Location = new System.Drawing.Point(97, 29);
+            this.txtV2.Location = new System.Drawing.Point(97, 31);
             this.txtV2.MaxLength = 4;
             this.txtV2.Name = "txtV2";
             this.txtV2.ReadOnly = true;
@@ -585,7 +591,7 @@ namespace Chip8_NET20
             // txtV1
             // 
             this.txtV1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV1.Location = new System.Drawing.Point(50, 29);
+            this.txtV1.Location = new System.Drawing.Point(50, 31);
             this.txtV1.MaxLength = 4;
             this.txtV1.Name = "txtV1";
             this.txtV1.ReadOnly = true;
@@ -599,7 +605,7 @@ namespace Chip8_NET20
             this.lblV7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV7.Location = new System.Drawing.Point(332, 0);
             this.lblV7.Name = "lblV7";
-            this.lblV7.Size = new System.Drawing.Size(47, 26);
+            this.lblV7.Size = new System.Drawing.Size(47, 28);
             this.lblV7.TabIndex = 7;
             this.lblV7.Text = "V7";
             this.lblV7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -610,7 +616,7 @@ namespace Chip8_NET20
             this.lblV6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV6.Location = new System.Drawing.Point(285, 0);
             this.lblV6.Name = "lblV6";
-            this.lblV6.Size = new System.Drawing.Size(41, 26);
+            this.lblV6.Size = new System.Drawing.Size(41, 28);
             this.lblV6.TabIndex = 6;
             this.lblV6.Text = "V6";
             this.lblV6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -621,7 +627,7 @@ namespace Chip8_NET20
             this.lblV5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV5.Location = new System.Drawing.Point(238, 0);
             this.lblV5.Name = "lblV5";
-            this.lblV5.Size = new System.Drawing.Size(41, 26);
+            this.lblV5.Size = new System.Drawing.Size(41, 28);
             this.lblV5.TabIndex = 5;
             this.lblV5.Text = "V5";
             this.lblV5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -632,7 +638,7 @@ namespace Chip8_NET20
             this.lblV4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV4.Location = new System.Drawing.Point(191, 0);
             this.lblV4.Name = "lblV4";
-            this.lblV4.Size = new System.Drawing.Size(41, 26);
+            this.lblV4.Size = new System.Drawing.Size(41, 28);
             this.lblV4.TabIndex = 4;
             this.lblV4.Text = "V4";
             this.lblV4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -643,7 +649,7 @@ namespace Chip8_NET20
             this.lblV3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV3.Location = new System.Drawing.Point(144, 0);
             this.lblV3.Name = "lblV3";
-            this.lblV3.Size = new System.Drawing.Size(41, 26);
+            this.lblV3.Size = new System.Drawing.Size(41, 28);
             this.lblV3.TabIndex = 3;
             this.lblV3.Text = "V3";
             this.lblV3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -654,7 +660,7 @@ namespace Chip8_NET20
             this.lblV2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV2.Location = new System.Drawing.Point(97, 0);
             this.lblV2.Name = "lblV2";
-            this.lblV2.Size = new System.Drawing.Size(41, 26);
+            this.lblV2.Size = new System.Drawing.Size(41, 28);
             this.lblV2.TabIndex = 2;
             this.lblV2.Text = "V2";
             this.lblV2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -665,7 +671,7 @@ namespace Chip8_NET20
             this.lblV1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV1.Location = new System.Drawing.Point(50, 0);
             this.lblV1.Name = "lblV1";
-            this.lblV1.Size = new System.Drawing.Size(41, 26);
+            this.lblV1.Size = new System.Drawing.Size(41, 28);
             this.lblV1.TabIndex = 1;
             this.lblV1.Text = "V1";
             this.lblV1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -676,7 +682,7 @@ namespace Chip8_NET20
             this.lblV0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblV0.Location = new System.Drawing.Point(3, 0);
             this.lblV0.Name = "lblV0";
-            this.lblV0.Size = new System.Drawing.Size(41, 26);
+            this.lblV0.Size = new System.Drawing.Size(41, 28);
             this.lblV0.TabIndex = 0;
             this.lblV0.Text = "V0";
             this.lblV0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -684,7 +690,7 @@ namespace Chip8_NET20
             // txtV0
             // 
             this.txtV0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtV0.Location = new System.Drawing.Point(3, 29);
+            this.txtV0.Location = new System.Drawing.Point(3, 31);
             this.txtV0.MaxLength = 4;
             this.txtV0.Name = "txtV0";
             this.txtV0.ReadOnly = true;
@@ -692,11 +698,45 @@ namespace Chip8_NET20
             this.txtV0.TabIndex = 8;
             this.txtV0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // grpOptions
+            // 
+            this.tlpMain.SetColumnSpan(this.grpOptions, 2);
+            this.grpOptions.Controls.Add(this.btnUpdate);
+            this.grpOptions.Controls.Add(this.chkAutoUpdate);
+            this.grpOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpOptions.Location = new System.Drawing.Point(3, 3);
+            this.grpOptions.Name = "grpOptions";
+            this.grpOptions.Size = new System.Drawing.Size(388, 49);
+            this.grpOptions.TabIndex = 3;
+            this.grpOptions.TabStop = false;
+            this.grpOptions.Text = "Options";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(100, 16);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 1;
+            this.btnUpdate.Text = "&Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // chkAutoUpdate
+            // 
+            this.chkAutoUpdate.AutoSize = true;
+            this.chkAutoUpdate.Location = new System.Drawing.Point(10, 20);
+            this.chkAutoUpdate.Name = "chkAutoUpdate";
+            this.chkAutoUpdate.Size = new System.Drawing.Size(84, 17);
+            this.chkAutoUpdate.TabIndex = 0;
+            this.chkAutoUpdate.Text = "&Auto update";
+            this.chkAutoUpdate.UseVisualStyleBackColor = true;
+            this.chkAutoUpdate.CheckedChanged += new System.EventHandler(this.chkAutoUpdate_CheckedChanged);
+            // 
             // FrmRegInspect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(394, 218);
+            this.ClientSize = new System.Drawing.Size(394, 278);
             this.Controls.Add(this.tlpMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmRegInspect";
@@ -715,6 +755,8 @@ namespace Chip8_NET20
             this.grpRegs.ResumeLayout(false);
             this.tlpRegs.ResumeLayout(false);
             this.tlpRegs.PerformLayout();
+            this.grpOptions.ResumeLayout(false);
+            this.grpOptions.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -770,5 +812,8 @@ namespace Chip8_NET20
         private System.Windows.Forms.TextBox txtV0;
         private System.Windows.Forms.TableLayoutPanel tlpGeneral;
         private System.Windows.Forms.TableLayoutPanel tlpTimers;
+        private System.Windows.Forms.GroupBox grpOptions;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.CheckBox chkAutoUpdate;
     }
 }
