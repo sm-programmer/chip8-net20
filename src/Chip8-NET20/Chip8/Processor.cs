@@ -183,13 +183,19 @@ namespace Chip8
 
         public override void ExecuteCycles(int noCycles)
         {
+            ExecuteCycles(noCycles, true);
+        }
+
+        public void ExecuteCycles(int noCycles, bool updateTimers)
+        {
             if (noCycles <= 0)
                 return;
 
             for (int i = 0; i < noCycles; i++)
                 cycle_step();
 
-            update_timers();
+            if (updateTimers)
+                update_timers();
         }
 
         private ushort get_nibbles(ushort value, ushort pattern)

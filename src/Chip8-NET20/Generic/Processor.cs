@@ -30,7 +30,11 @@ namespace Generic
         public int Speed
         {
             get { return _speed; }
-            set { _speed = value; }
+            set
+            {
+                _speed = value;
+                OnPropertyChanged("Speed");
+            }
         }
 
         private bool _draw;

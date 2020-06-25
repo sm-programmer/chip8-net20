@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
 
 namespace Chip8
 {
@@ -29,6 +30,14 @@ namespace Chip8
         public event CycleSteppedEventHandler CycleStepped;
 
         private int countFreq = 0;
+        private int countInstr = 0;
+
+        private int _no_instr = 0;
+        private int InstructionCount
+        {
+            get { return _no_instr; }
+            set { _no_instr = value; }
+        }
 
         private Display _disp;
         public Display Display
@@ -41,7 +50,19 @@ namespace Chip8
         public Processor Processor
         {
             get { return _proc; }
-            set { _proc = value; }
+            set
+            {
+                if (_proc != null)
+                    _proc.PropertyChanged -= OnProcSpeedChanged;
+
+                _proc = value;
+
+                if (_proc != null)
+                {
+                    _proc.PropertyChanged += new PropertyChangedEventHandler(OnProcSpeedChanged);
+                    updateInstrCount();
+                }
+            }
         }
 
         private bool _emu_start;
@@ -69,10 +90,15 @@ namespace Chip8
 
             if (EmulationStarted)
             {
+                int noInstr = (Monostable) ? 1 : InstructionCount;
+                bool updTimer = (Monostable)
+                        ? (countInstr == InstructionCount - 1)
+                        : true;
+
                 if (Monostable)
-                    Processor.ExecuteCycles(1);
-                else
-                    Processor.ExecuteCycles((int)(Processor.Speed / Frequency));
+                    countInstr = (countInstr + 1) % InstructionCount;
+
+                Processor.ExecuteCycles(noInstr, updTimer);
             }
 
             if (Processor.Draw)
@@ -95,6 +121,19 @@ namespace Chip8
             CycleSteppedEventHandler handler = CycleStepped;
             if (handler != null)
                 handler(this);
+        }
+
+        private void updateInstrCount()
+        {
+            InstructionCount = (int)(Processor.Speed / Frequency);
+        }
+
+        private void OnProcSpeedChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != "Speed")
+                return;
+
+            updateInstrCount();
         }
 
         public abstract void Start();
