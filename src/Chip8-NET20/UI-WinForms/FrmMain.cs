@@ -50,6 +50,8 @@ namespace Chip8_NET20
         private FrmRegInspect frmRegInspect;
         private FrmStackViewer frmStackViewer;
 
+        private Form[] devTools;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -86,6 +88,11 @@ namespace Chip8_NET20
 
             frmStackViewer = new FrmStackViewer();
             frmStackViewer.Source = comp;
+
+            devTools = new Form[]
+            {
+                frmMemViewer, frmRegInspect, frmStackViewer
+            };
         }
 
         private void init_computer()
@@ -193,6 +200,13 @@ namespace Chip8_NET20
             lblStatus.Text = "The CHIP-8 has been warm reset.";
         }
 
+        private void OnOscCycleStepped(object sender)
+        {
+            itemStop.PerformClick();
+
+            lblStatus.Text = "Execution cycle completed. The CHIP-8 has stopped.";
+        }
+
         private void itemExit_Click(object sender, EventArgs e)
         {
             Close();
@@ -264,6 +278,17 @@ namespace Chip8_NET20
 
             foreach (ToolStripItem item in menuDev.DropDownItems)
                 item.Enabled = itemShowDevTools.Checked;
+
+            if (itemShowDevTools.Checked)
+                lblStatus.Text = "Developer tools have been activated. Please check the \"Developer\" menu.";
+            else
+            {
+                foreach (Form f in devTools)
+                    if (f.Visible)
+                        f.Close();
+
+                lblStatus.Text = "Developer tools have been disabled.";
+            }
         }
 
         private void itemDevMemViewer_Click(object sender, EventArgs e)
@@ -288,6 +313,24 @@ namespace Chip8_NET20
                 frmStackViewer.Show(this);
             else
                 frmStackViewer.Focus();
+        }
+
+        private void itemDevCycleStep_CheckedChanged(object sender, EventArgs e)
+        {
+            comp.Oscillator.Monostable = itemDevCycleStep.Checked;
+
+            if (itemDevCycleStep.Checked)
+            {
+                comp.Oscillator.CycleStepped += new Chip8.CycleSteppedEventHandler(OnOscCycleStepped);
+
+                lblStatus.Text = "Cycle stepping is now active.";
+            }
+            else
+            {
+                comp.Oscillator.CycleStepped -= OnOscCycleStepped;
+
+                lblStatus.Text = "Cycle stepping has been deactivated.";
+            }
         }
 
         private void itemAbout_Click(object sender, EventArgs e)

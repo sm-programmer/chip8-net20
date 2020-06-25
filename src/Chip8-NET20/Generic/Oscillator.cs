@@ -31,6 +31,13 @@ namespace Generic
             set { _freq = value; }
         }
 
+        private bool _monostable;
+        public bool Monostable
+        {
+            get { return _monostable; }
+            set { _monostable = value; }
+        }
+
         public Oscillator()
             : this(0)
         {

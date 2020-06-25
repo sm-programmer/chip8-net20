@@ -22,8 +22,14 @@ using System.Text;
 
 namespace Chip8
 {
+    public delegate void CycleSteppedEventHandler(object sender);
+
     public abstract class Oscillator : Generic.Oscillator
     {
+        public event CycleSteppedEventHandler CycleStepped;
+
+        private int countFreq = 0;
+
         private Display _disp;
         public Display Display
         {
@@ -62,7 +68,12 @@ namespace Chip8
                 return;
 
             if (EmulationStarted)
-                Processor.ExecuteCycles((int) (Processor.Speed / Frequency));
+            {
+                if (Monostable)
+                    Processor.ExecuteCycles(1);
+                else
+                    Processor.ExecuteCycles((int)(Processor.Speed / Frequency));
+            }
 
             if (Processor.Draw)
             {
@@ -71,6 +82,19 @@ namespace Chip8
                 if (Display != null)
                     Display.Update();
             }
+
+            if (++countFreq == Frequency)
+                countFreq = 0;
+
+            if (EmulationStarted && Monostable)
+                OnCycleStepped();
+        }
+
+        protected void OnCycleStepped()
+        {
+            CycleSteppedEventHandler handler = CycleStepped;
+            if (handler != null)
+                handler(this);
         }
 
         public abstract void Start();

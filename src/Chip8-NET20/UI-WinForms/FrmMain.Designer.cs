@@ -59,6 +59,9 @@ namespace Chip8_NET20
             this.menuDev = new System.Windows.Forms.ToolStripMenuItem();
             this.itemDevMemViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.itemDevRegInspect = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemDevStackViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.itemDevCycleStep = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.itemAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
@@ -67,9 +70,8 @@ namespace Chip8_NET20
             this.tsContainer = new System.Windows.Forms.ToolStripContainer();
             this.disp = new Display.DisplayUI();
             this.toolBar = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.itemDevStackViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLoadProg = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnStart = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.btnColdReset = new System.Windows.Forms.ToolStripButton();
@@ -136,7 +138,7 @@ namespace Chip8_NET20
             // 
             this.itemStop.Enabled = false;
             this.itemStop.Name = "itemStop";
-            this.itemStop.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.itemStop.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F5)));
             this.itemStop.Size = new System.Drawing.Size(203, 22);
             this.itemStop.Text = "S&top";
             this.itemStop.Click += new System.EventHandler(this.OnComputerStop);
@@ -189,8 +191,8 @@ namespace Chip8_NET20
             // 
             this.itemClearScrStart.CheckOnClick = true;
             this.itemClearScrStart.Name = "itemClearScrStart";
-            this.itemClearScrStart.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.itemClearScrStart.Size = new System.Drawing.Size(222, 22);
+            this.itemClearScrStart.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.itemClearScrStart.Size = new System.Drawing.Size(233, 22);
             this.itemClearScrStart.Text = "&Clear screen on start";
             this.itemClearScrStart.CheckedChanged += new System.EventHandler(this.itemClearScrStart_CheckedChanged);
             // 
@@ -198,15 +200,15 @@ namespace Chip8_NET20
             // 
             this.itemModifyI.CheckOnClick = true;
             this.itemModifyI.Name = "itemModifyI";
-            this.itemModifyI.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.itemModifyI.Size = new System.Drawing.Size(222, 22);
+            this.itemModifyI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.itemModifyI.Size = new System.Drawing.Size(233, 22);
             this.itemModifyI.Text = "&Modify I on FX55, FX65";
             this.itemModifyI.CheckedChanged += new System.EventHandler(this.itemModifyI_CheckedChanged);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(230, 6);
             // 
             // submenuFonts
             // 
@@ -216,7 +218,7 @@ namespace Chip8_NET20
             this.itemFont7Seg,
             this.itemFontLowercase});
             this.submenuFonts.Name = "submenuFonts";
-            this.submenuFonts.Size = new System.Drawing.Size(222, 22);
+            this.submenuFonts.Size = new System.Drawing.Size(233, 22);
             this.submenuFonts.Text = "System &font";
             // 
             // itemFontDefault
@@ -257,7 +259,7 @@ namespace Chip8_NET20
             this.itemBuzz736Square,
             this.itemBuzz787Sine});
             this.submenuBuzzer.Name = "submenuBuzzer";
-            this.submenuBuzzer.Size = new System.Drawing.Size(222, 22);
+            this.submenuBuzzer.Size = new System.Drawing.Size(233, 22);
             this.submenuBuzzer.Text = "&Buzzer";
             // 
             // itemBuzz736Square
@@ -283,7 +285,7 @@ namespace Chip8_NET20
             this.itemSpeedNormal,
             this.itemSpeedFast});
             this.submenuSpeed.Name = "submenuSpeed";
-            this.submenuSpeed.Size = new System.Drawing.Size(222, 22);
+            this.submenuSpeed.Size = new System.Drawing.Size(233, 22);
             this.submenuSpeed.Text = "&Processor speed";
             // 
             // itemSpeedSlow
@@ -313,14 +315,14 @@ namespace Chip8_NET20
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(219, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(230, 6);
             // 
             // itemShowDevTools
             // 
             this.itemShowDevTools.CheckOnClick = true;
             this.itemShowDevTools.Name = "itemShowDevTools";
             this.itemShowDevTools.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.itemShowDevTools.Size = new System.Drawing.Size(222, 22);
+            this.itemShowDevTools.Size = new System.Drawing.Size(233, 22);
             this.itemShowDevTools.Text = "Show &developer tools";
             this.itemShowDevTools.CheckedChanged += new System.EventHandler(this.itemShowDevTools_CheckedChanged);
             // 
@@ -329,7 +331,9 @@ namespace Chip8_NET20
             this.menuDev.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.itemDevMemViewer,
             this.itemDevRegInspect,
-            this.itemDevStackViewer});
+            this.itemDevStackViewer,
+            this.toolStripSeparator6,
+            this.itemDevCycleStep});
             this.menuDev.Name = "menuDev";
             this.menuDev.Size = new System.Drawing.Size(68, 20);
             this.menuDev.Text = "&Developer";
@@ -352,6 +356,30 @@ namespace Chip8_NET20
             this.itemDevRegInspect.Size = new System.Drawing.Size(211, 22);
             this.itemDevRegInspect.Text = "&Register inspector";
             this.itemDevRegInspect.Click += new System.EventHandler(this.itemDevRegInspect_Click);
+            // 
+            // itemDevStackViewer
+            // 
+            this.itemDevStackViewer.Enabled = false;
+            this.itemDevStackViewer.Name = "itemDevStackViewer";
+            this.itemDevStackViewer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.itemDevStackViewer.Size = new System.Drawing.Size(211, 22);
+            this.itemDevStackViewer.Text = "&Stack viewer";
+            this.itemDevStackViewer.Click += new System.EventHandler(this.itemDevStackViewer_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(208, 6);
+            // 
+            // itemDevCycleStep
+            // 
+            this.itemDevCycleStep.CheckOnClick = true;
+            this.itemDevCycleStep.Enabled = false;
+            this.itemDevCycleStep.Name = "itemDevCycleStep";
+            this.itemDevCycleStep.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.itemDevCycleStep.Size = new System.Drawing.Size(211, 22);
+            this.itemDevCycleStep.Text = "&Cycle step";
+            this.itemDevCycleStep.CheckedChanged += new System.EventHandler(this.itemDevCycleStep_CheckedChanged);
             // 
             // menuHelp
             // 
@@ -434,20 +462,6 @@ namespace Chip8_NET20
             this.toolBar.TabIndex = 4;
             this.toolBar.Text = "toolStrip1";
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 39);
-            // 
-            // itemDevStackViewer
-            // 
-            this.itemDevStackViewer.Enabled = false;
-            this.itemDevStackViewer.Name = "itemDevStackViewer";
-            this.itemDevStackViewer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.itemDevStackViewer.Size = new System.Drawing.Size(211, 22);
-            this.itemDevStackViewer.Text = "&Stack viewer";
-            this.itemDevStackViewer.Click += new System.EventHandler(this.itemDevStackViewer_Click);
-            // 
             // btnLoadProg
             // 
             this.btnLoadProg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -458,6 +472,11 @@ namespace Chip8_NET20
             this.btnLoadProg.Text = "toolStripButton1";
             this.btnLoadProg.ToolTipText = "Load program...";
             this.btnLoadProg.Click += new System.EventHandler(this.OnLoadProgram);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 39);
             // 
             // btnStart
             // 
@@ -582,6 +601,8 @@ namespace Chip8_NET20
         private System.Windows.Forms.ToolStripMenuItem itemDevMemViewer;
         private System.Windows.Forms.ToolStripMenuItem itemDevRegInspect;
         private System.Windows.Forms.ToolStripMenuItem itemDevStackViewer;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem itemDevCycleStep;
     }
 }
 
