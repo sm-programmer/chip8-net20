@@ -35,6 +35,7 @@
   <ItemGroup>
     <Compile Include="Buzzer.cs" />
     <Compile Include="Computer.cs" />
+    <Compile Include="DataStructures\InstructionDictionary.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="FileIO.cs" />
     <Compile Include="Keyboard.cs" />
