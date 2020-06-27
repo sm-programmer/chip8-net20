@@ -43,6 +43,7 @@ namespace Chip8_NET20
         private Dictionary<Command, ToolStripItem[]> compositeCommands;
 
         private ToolStripMenuItem[] availableFonts;
+        private ToolStripMenuItem[] availableForeColors;
         private ToolStripMenuItem[] availableBuzzers;
         private ToolStripMenuItem[] availableSpeeds;
 
@@ -59,6 +60,11 @@ namespace Chip8_NET20
             availableFonts = new ToolStripMenuItem[]
             {
                 itemFontDefault, itemFontAlt, itemFont7Seg, itemFontLowercase
+            };
+
+            availableForeColors = new ToolStripMenuItem[]
+            {
+                subitemForeColorAmber, subitemForeColorStrongGreen, subitemForeColorLightGreen
             };
 
             availableBuzzers = new ToolStripMenuItem[]
@@ -106,6 +112,7 @@ namespace Chip8_NET20
             itemClearScrStart.PerformClick();
 
             itemFontDefault.PerformClick();
+            subitemForeColorAmber.PerformClick();
             itemBuzz736Square.PerformClick();
             itemSpeedNormal.PerformClick();
 
@@ -121,6 +128,17 @@ namespace Chip8_NET20
 
             foreach (ToolStripItem item in items)
                 item.Enabled = enabled;
+        }
+
+        private void exclusive_activate_menu(ToolStripMenuItem active, ToolStripMenuItem[] group)
+        {
+            if (active == null || group == null)
+                return;
+
+            foreach (ToolStripMenuItem item in group)
+                item.Checked = false;
+
+            active.Checked = true;
         }
 
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -233,25 +251,29 @@ namespace Chip8_NET20
         private void itemFont_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem tsmiSender = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in availableFonts)
-                item.Checked = false;
-
-            tsmiSender.Checked = true;
+            exclusive_activate_menu(tsmiSender, availableFonts);
 
             comp.FontPath = Application.StartupPath + "\\" + (string) tsmiSender.Tag;
 
             lblStatus.Text = "System font \"" + tsmiSender.Text + "\" has been successfully loaded!";
         }
 
+        private void itemForeColor_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem tsmiSender = sender as ToolStripMenuItem;
+            exclusive_activate_menu(tsmiSender, availableForeColors);
+
+            comp.Display.ForegroundColor = new Generic.Display.Color(Convert.ToInt32(tsmiSender.Tag.ToString(), 16));
+        }
+
+        private void itemBackColor_Click(object sender, EventArgs e)
+        {
+        }
+
         private void itemBuzzer_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem tsmiSender = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in availableBuzzers)
-                item.Checked = false;
-
-            tsmiSender.Checked = true;
+            exclusive_activate_menu(tsmiSender, availableBuzzers);
 
             comp.Buzzer.SoundPath = Application.StartupPath + "\\" + (string) tsmiSender.Tag;
 
@@ -261,11 +283,7 @@ namespace Chip8_NET20
         private void itemSpeed_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem tsmiSender = sender as ToolStripMenuItem;
-
-            foreach (ToolStripMenuItem item in availableSpeeds)
-                item.Checked = false;
-
-            tsmiSender.Checked = true;
+            exclusive_activate_menu(tsmiSender, availableSpeeds);
 
             comp.Processor.Speed = Int32.Parse(tsmiSender.Tag.ToString());
 

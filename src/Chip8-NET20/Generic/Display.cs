@@ -56,9 +56,9 @@ namespace Generic
 
                 set
                 {
-                    Red = (byte) ((value >> 16) & 0xFF);
+                    Blue = (byte) ((value >> 16) & 0xFF);
                     Green = (byte) ((value >> 8) & 0xFF);
-                    Blue = (byte) (value & 0xFF);
+                    Red = (byte) (value & 0xFF);
                 }
             }
 

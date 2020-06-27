@@ -47,6 +47,11 @@ namespace Chip8_NET20
             this.itemFontAlt = new System.Windows.Forms.ToolStripMenuItem();
             this.itemFont7Seg = new System.Windows.Forms.ToolStripMenuItem();
             this.itemFontLowercase = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemDevScreenColors = new System.Windows.Forms.ToolStripMenuItem();
+            this.subitemColorFore = new System.Windows.Forms.ToolStripMenuItem();
+            this.subitemForeColorAmber = new System.Windows.Forms.ToolStripMenuItem();
+            this.subitemForeColorStrongGreen = new System.Windows.Forms.ToolStripMenuItem();
+            this.subitemColorBack = new System.Windows.Forms.ToolStripMenuItem();
             this.submenuBuzzer = new System.Windows.Forms.ToolStripMenuItem();
             this.itemBuzz736Square = new System.Windows.Forms.ToolStripMenuItem();
             this.itemBuzz787Sine = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +73,6 @@ namespace Chip8_NET20
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tsContainer = new System.Windows.Forms.ToolStripContainer();
-            this.disp = new Display.DisplayUI();
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.btnLoadProg = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -76,6 +80,8 @@ namespace Chip8_NET20
             this.btnStop = new System.Windows.Forms.ToolStripButton();
             this.btnColdReset = new System.Windows.Forms.ToolStripButton();
             this.btnWarmReset = new System.Windows.Forms.ToolStripButton();
+            this.subitemForeColorLightGreen = new System.Windows.Forms.ToolStripMenuItem();
+            this.disp = new Display.DisplayUI();
             this.menuBar.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.tsContainer.ContentPanel.SuspendLayout();
@@ -179,6 +185,7 @@ namespace Chip8_NET20
             this.itemModifyI,
             this.toolStripSeparator3,
             this.submenuFonts,
+            this.itemDevScreenColors,
             this.submenuBuzzer,
             this.submenuSpeed,
             this.toolStripSeparator5,
@@ -252,6 +259,48 @@ namespace Chip8_NET20
             this.itemFontLowercase.Tag = "fonts\\lowercase.ch8";
             this.itemFontLowercase.Text = "&Lowercase";
             this.itemFontLowercase.Click += new System.EventHandler(this.itemFont_Click);
+            // 
+            // itemDevScreenColors
+            // 
+            this.itemDevScreenColors.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.subitemColorFore,
+            this.subitemColorBack});
+            this.itemDevScreenColors.Name = "itemDevScreenColors";
+            this.itemDevScreenColors.Size = new System.Drawing.Size(233, 22);
+            this.itemDevScreenColors.Text = "&Screen colors";
+            // 
+            // subitemColorFore
+            // 
+            this.subitemColorFore.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.subitemForeColorAmber,
+            this.subitemForeColorStrongGreen,
+            this.subitemForeColorLightGreen});
+            this.subitemColorFore.Name = "subitemColorFore";
+            this.subitemColorFore.Size = new System.Drawing.Size(152, 22);
+            this.subitemColorFore.Text = "&Foreground";
+            // 
+            // subitemForeColorAmber
+            // 
+            this.subitemForeColorAmber.Name = "subitemForeColorAmber";
+            this.subitemForeColorAmber.Size = new System.Drawing.Size(171, 22);
+            this.subitemForeColorAmber.Tag = "0x00B0FF";
+            this.subitemForeColorAmber.Text = "&Amber (P3)";
+            this.subitemForeColorAmber.Click += new System.EventHandler(this.itemForeColor_Click);
+            // 
+            // subitemForeColorStrongGreen
+            // 
+            this.subitemForeColorStrongGreen.Name = "subitemForeColorStrongGreen";
+            this.subitemForeColorStrongGreen.Size = new System.Drawing.Size(171, 22);
+            this.subitemForeColorStrongGreen.Tag = "0x33FF33";
+            this.subitemForeColorStrongGreen.Text = "&Strong green (P1)";
+            this.subitemForeColorStrongGreen.Click += new System.EventHandler(this.itemForeColor_Click);
+            // 
+            // subitemColorBack
+            // 
+            this.subitemColorBack.Enabled = false;
+            this.subitemColorBack.Name = "subitemColorBack";
+            this.subitemColorBack.Size = new System.Drawing.Size(152, 22);
+            this.subitemColorBack.Text = "&Background";
             // 
             // submenuBuzzer
             // 
@@ -436,14 +485,6 @@ namespace Chip8_NET20
             // 
             this.tsContainer.TopToolStripPanel.Controls.Add(this.toolBar);
             // 
-            // disp
-            // 
-            this.disp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.disp.Location = new System.Drawing.Point(0, 0);
-            this.disp.Name = "disp";
-            this.disp.Size = new System.Drawing.Size(504, 272);
-            this.disp.TabIndex = 3;
-            // 
             // toolBar
             // 
             this.toolBar.Dock = System.Windows.Forms.DockStyle.None;
@@ -524,6 +565,22 @@ namespace Chip8_NET20
             this.btnWarmReset.ToolTipText = "Warm reset";
             this.btnWarmReset.Click += new System.EventHandler(this.OnComputerWarmReset);
             // 
+            // subitemForeColorLightGreen
+            // 
+            this.subitemForeColorLightGreen.Name = "subitemForeColorLightGreen";
+            this.subitemForeColorLightGreen.Size = new System.Drawing.Size(171, 22);
+            this.subitemForeColorLightGreen.Tag = "0x66FF66";
+            this.subitemForeColorLightGreen.Text = "&Light green (P24)";
+            this.subitemForeColorLightGreen.Click += new System.EventHandler(this.itemForeColor_Click);
+            // 
+            // disp
+            // 
+            this.disp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.disp.Location = new System.Drawing.Point(0, 0);
+            this.disp.Name = "disp";
+            this.disp.Size = new System.Drawing.Size(504, 272);
+            this.disp.TabIndex = 3;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -603,6 +660,12 @@ namespace Chip8_NET20
         private System.Windows.Forms.ToolStripMenuItem itemDevStackViewer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem itemDevCycleStep;
+        private System.Windows.Forms.ToolStripMenuItem itemDevScreenColors;
+        private System.Windows.Forms.ToolStripMenuItem subitemColorFore;
+        private System.Windows.Forms.ToolStripMenuItem subitemColorBack;
+        private System.Windows.Forms.ToolStripMenuItem subitemForeColorAmber;
+        private System.Windows.Forms.ToolStripMenuItem subitemForeColorStrongGreen;
+        private System.Windows.Forms.ToolStripMenuItem subitemForeColorLightGreen;
     }
 }
 
