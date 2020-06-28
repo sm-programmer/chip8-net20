@@ -20,6 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using Generic.Events;
+
 namespace Generic
 {
     public delegate void MemoryModifiedEventHandler(object sender, MemoryModifiedEventArgs e);

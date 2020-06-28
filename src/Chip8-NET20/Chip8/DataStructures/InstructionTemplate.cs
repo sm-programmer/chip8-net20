@@ -20,28 +20,39 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Generic.Events
+using Generic.DataStructures;
+
+namespace Chip8.DataStructures
 {
-    public class MemoryModifiedEventArgs
+    public enum InstructionType
     {
-        private int _index;
-        public int Index
+        NoArguments,
+        OneArgument4Bits,
+        OneArgument12Bits,
+        TwoArguments4BitsEach,
+        TwoArguments4BitsAnd8Bits,
+        ThreeArguments4BitsEach
+    }
+
+    public class InstructionTemplate : Generic.DataStructures.InstructionTemplate
+    {
+        private InstructionType _type;
+        public InstructionType Type
         {
-            get { return _index; }
-            set { _index = value; }
+            get { return _type; }
+            private set { _type = value; }
         }
 
-        private byte _val;
-        public byte Value
+        public InstructionTemplate(InstructionType type, string format, InstructionHandler handler)
         {
-            get { return _val; }
-            set { _val = value; }
+            Type = type;
+            Format = format;
+            Handler = handler;
         }
 
-        public MemoryModifiedEventArgs(int index, byte value)
+        public override Generic.DataStructures.Instruction FormInstruction(ushort opcode)
         {
-            Index = index;
-            Value = value;
+            return (Generic.DataStructures.Instruction) new Instruction(this, opcode);
         }
     }
 }

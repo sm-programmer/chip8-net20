@@ -20,28 +20,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Generic.Events
+namespace Generic.DataStructures
 {
-    public class MemoryModifiedEventArgs
+    public abstract class InstructionArgs
     {
-        private int _index;
-        public int Index
+        private List<object> _args;
+        protected List<object> Arguments
         {
-            get { return _index; }
-            set { _index = value; }
+            get { return _args; }
+            set { _args = value; }
         }
 
-        private byte _val;
-        public byte Value
+        public object this[int index]
         {
-            get { return _val; }
-            set { _val = value; }
+            get { return GetArgument(index); }
         }
 
-        public MemoryModifiedEventArgs(int index, byte value)
-        {
-            Index = index;
-            Value = value;
-        }
+        protected abstract object GetArgument(int index);
     }
 }

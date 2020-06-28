@@ -42,6 +42,12 @@
     <Compile Include="FrmAbout.Designer.cs">
       <DependentUpon>FrmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmDisassembler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDisassembler.Designer.cs">
+      <DependentUpon>FrmDisassembler.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,10 @@
     <EmbeddedResource Include="FrmAbout.resx">
       <SubType>Designer</SubType>
       <DependentUpon>FrmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDisassembler.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmDisassembler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <SubType>Designer</SubType>

@@ -50,6 +50,7 @@ namespace Chip8_NET20
         private FrmMemViewer frmMemViewer;
         private FrmRegInspect frmRegInspect;
         private FrmStackViewer frmStackViewer;
+        private FrmDisassembler frmDisassembler;
 
         private Form[] devTools;
 
@@ -95,9 +96,12 @@ namespace Chip8_NET20
             frmStackViewer = new FrmStackViewer();
             frmStackViewer.Source = comp;
 
+            frmDisassembler = new FrmDisassembler();
+            frmDisassembler.Source = comp;
+
             devTools = new Form[]
             {
-                frmMemViewer, frmRegInspect, frmStackViewer
+                frmMemViewer, frmRegInspect, frmStackViewer, frmDisassembler
             };
         }
 
@@ -331,6 +335,14 @@ namespace Chip8_NET20
                 frmStackViewer.Show(this);
             else
                 frmStackViewer.Focus();
+        }
+
+        private void itemDevDisassembler_Click(object sender, EventArgs e)
+        {
+            if (!frmDisassembler.Visible)
+                frmDisassembler.Show(this);
+            else
+                frmDisassembler.Focus();
         }
 
         private void itemDevCycleStep_CheckedChanged(object sender, EventArgs e)

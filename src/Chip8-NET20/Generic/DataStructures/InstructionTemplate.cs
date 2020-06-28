@@ -20,28 +20,24 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Generic.Events
+namespace Generic.DataStructures
 {
-    public class MemoryModifiedEventArgs
+    public abstract class InstructionTemplate
     {
-        private int _index;
-        public int Index
+        private string _repr;
+        public string Format
         {
-            get { return _index; }
-            set { _index = value; }
+            get { return _repr; }
+            protected set { _repr = value; }
         }
 
-        private byte _val;
-        public byte Value
+        protected InstructionHandler _handler = null;
+        public InstructionHandler Handler
         {
-            get { return _val; }
-            set { _val = value; }
+            get { return _handler; }
+            protected set { _handler = value; }
         }
 
-        public MemoryModifiedEventArgs(int index, byte value)
-        {
-            Index = index;
-            Value = value;
-        }
+        public abstract Instruction FormInstruction(ushort opcode);
     }
 }

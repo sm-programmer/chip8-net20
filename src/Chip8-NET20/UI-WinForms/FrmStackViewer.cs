@@ -85,6 +85,11 @@ namespace Chip8_NET20
                 e.Cancel = true;
                 Hide();
             }
+            else
+            {
+                if (chkAutoUpdate.Checked)
+                    chkAutoUpdate.Checked = false;
+            }
         }
 
         private void OnSPChanged(object sender, PropertyChangedEventArgs e)

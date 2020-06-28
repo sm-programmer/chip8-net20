@@ -35,6 +35,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MemoryViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>

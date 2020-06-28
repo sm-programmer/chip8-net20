@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using Generic.Events;
 using Chip8;
 
 namespace Chip8_NET20
@@ -167,12 +168,12 @@ namespace Chip8_NET20
             }
         }
 
-        private void Memory_MemoryModified(object sender, Generic.MemoryModifiedEventArgs e)
+        private void Memory_MemoryModified(object sender, MemoryModifiedEventArgs e)
         {
             memViewer.RefreshContents();
         }
 
-        private void Memory_MemoryRangeModified(object sender, Generic.MemoryRangeModifiedEventArgs e)
+        private void Memory_MemoryRangeModified(object sender, MemoryRangeModifiedEventArgs e)
         {
             memViewer.RefreshContents();
         }

@@ -52,6 +52,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStructures\Instruction.cs" />
+    <Compile Include="DataStructures\InstructionTemplate.cs" />
+    <Compile Include="DataStructures\InstructionArgs.cs" />
+    <Compile Include="DataStructures\InstructionDictionary.cs" />
     <Compile Include="Events\MemoryRangeModifiedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
