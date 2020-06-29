@@ -160,6 +160,8 @@ namespace Chip8_NET20
             {
                 CurrentMemory.MemoryModified += new Generic.MemoryModifiedEventHandler(Memory_MemoryModified);
                 CurrentMemory.MemoryRangeModified += new Generic.MemoryRangeModifiedEventHandler(Memory_MemoryRangeModified);
+
+                memViewer.RefreshContents();
             }
             else
             {

@@ -201,6 +201,8 @@ namespace Chip8_NET20
             {
                 proc.PropertyChanged += new PropertyChangedEventHandler(OnCounterOrTimerChanged);
                 proc.V.ItemReplaced += new NotifiableList<byte>.ItemStatusEventHandler(OnRegisterChanged);
+
+                updateAll();
             }
             else
             {

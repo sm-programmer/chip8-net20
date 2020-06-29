@@ -24,10 +24,12 @@ using System.ComponentModel;
 namespace Chip8
 {
     public delegate void CycleSteppedEventHandler(object sender);
+    public delegate void EmulationHaltedEventHandler(object sender, Exception ex);
 
     public abstract class Oscillator : Generic.Oscillator
     {
         public event CycleSteppedEventHandler CycleStepped;
+        public event EmulationHaltedEventHandler EmulationHalted;
 
         private int countFreq = 0;
         private int countInstr = 0;
@@ -70,6 +72,13 @@ namespace Chip8
         {
             get { return _emu_start; }
             set { _emu_start = value; }
+        }
+
+        private bool _stop_halted = false;
+        public bool StopWhenHalted
+        {
+            get { return _stop_halted; }
+            set { _stop_halted = value; }
         }
 
         public Oscillator()
@@ -134,6 +143,21 @@ namespace Chip8
                 return;
 
             updateInstrCount();
+        }
+
+        public void HaltEmulation(Exception ex)
+        {
+            if (StopWhenHalted)
+                EmulationStarted = false;
+
+            OnEmulationHalted(ex);
+        }
+
+        private void OnEmulationHalted(Exception ex)
+        {
+            EmulationHaltedEventHandler handler = EmulationHalted;
+            if (handler != null)
+                handler(this, ex);
         }
 
         public abstract void Start();

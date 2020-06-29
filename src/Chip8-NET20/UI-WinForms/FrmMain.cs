@@ -120,6 +120,8 @@ namespace Chip8_NET20
             itemBuzz736Square.PerformClick();
             itemSpeedNormal.PerformClick();
 
+            comp.Oscillator.StopWhenHalted = false;
+            comp.Oscillator.EmulationHalted += new Chip8.EmulationHaltedEventHandler(OnEmulationHalted);
             comp.Oscillator.Start();
 
             lblStatus.Text = "This is the CHIP-8 emulator.";
@@ -227,6 +229,27 @@ namespace Chip8_NET20
             itemStop.PerformClick();
 
             lblStatus.Text = "Execution cycle completed. The CHIP-8 has stopped.";
+        }
+
+        private void OnEmulationHalted(object sender, Exception ex)
+        {
+            Chip8.Processor proc = ((Chip8.Processor)comp.Processor);
+
+            itemStop.PerformClick();
+
+            MessageBox.Show(
+                "An exception occurred when executing the program.\n\n" +
+                "Error: " + ex.Message + "\n" +
+                String.Format("Address: 0x{0:X4}\n\n", proc.PC) +
+                "Emulation has been automatically stopped.\n" +
+                "Please use the Register Inspector (F12, Ctrl+R, Alt+U) to check the state of the processor.",
+                "Processor error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
+
+            lblStatus.Text = "Exception \"" + ex.Message + "\" occurred at address " +
+                    String.Format("0x{0:X4}", proc.PC) + ". Emulation has been halted.";
         }
 
         private void itemExit_Click(object sender, EventArgs e)

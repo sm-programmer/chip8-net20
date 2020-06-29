@@ -46,7 +46,14 @@ namespace Display
 
         private void OnTimerTick(object sender, EventArgs e)
         {
-            CycleCompleted();
+            try
+            {
+                CycleCompleted();
+            }
+            catch (Exception ex)
+            {
+                HaltEmulation(ex);
+            }
         }
 
         public override void Start()

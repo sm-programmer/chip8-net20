@@ -119,6 +119,8 @@ namespace Chip8_NET20
             {
                 proc.PropertyChanged += new PropertyChangedEventHandler(OnSPChanged);
                 proc.Stack.ItemReplaced += new NotifiableList<ushort>.ItemStatusEventHandler(OnStackItemReplaced);
+
+                updateAll();
             }
             else
             {
