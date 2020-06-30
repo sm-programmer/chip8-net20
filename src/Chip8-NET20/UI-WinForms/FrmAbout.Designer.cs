@@ -63,7 +63,7 @@ namespace Chip8_NET20
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(166, 13);
             this.lblVersion.TabIndex = 2;
-            this.lblVersion.Text = "Version 1.0-alpha-20200622";
+            this.lblVersion.Text = "Version 1.0-alpha-20200629";
             // 
             // lblAuthor
             // 

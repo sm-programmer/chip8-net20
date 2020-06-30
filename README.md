@@ -1,7 +1,7 @@
 The CHIP-8 emulator
 ===================
 
-**Current version:** 1.0-alpha-20200622
+**Current version:** 1.0-alpha-20200629
 
 Overview
 --------
@@ -15,13 +15,16 @@ Features
     - Selectable system font.
     - Two buzzer sounds available.
     - Selectable processor speed.
+    - Selectable foreground color.
 * Fine tuning for program compatibility.
     - Automatic screen clear on reset.
     - Selectable behavior of `I` register on instructions `FX55` and `FX65`.
 * Developer tools.
+    - Basic cycle stepping mode (one processor cycle per invocation).
     - Memory viewer.
     - Register inspector.
     - Stack viewer.
+    - Basic disassembler.
 
 How to build
 ------------
@@ -46,6 +49,7 @@ src\Chip8-NET20\UI-WinForms\bin\Release\
 │   ├── Keypad Test [Hap, 2006].ch8
 │   ├── MAZE.ch8
 │   ├── MERLIN.ch8
+│   ├── overstack.ch8
 │   ├── pong2.c8
 │   ├── TANK.ch8
 │   ├── test_opcode.ch8
@@ -70,12 +74,13 @@ Any other files not included in this tree may be safely removed.
 Planned
 -------
 
-* User controls.
-    - Cycle-step (one processor cycle per invocation).
-* Developer tools.
-    - Disassembler. (Long term)
+* Implementation correctness.
+    - Allow the user to select whether or not to use RAM for the stack.
 * Customizable configuration.
-    - Screen background and foreground colors.
+    - Screen background color.
+* Developer tools.
+    - Make the disassembler follow the address being executed when cycle-stepping.
+    - Provide interfaces to write values directly to RAM, the stack or registers/timers.
 
 License
 -------
