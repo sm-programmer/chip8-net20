@@ -1,7 +1,7 @@
 The CHIP-8 emulator
 ===================
 
-**Current version:** 1.0-alpha-20200629
+**Current version:** 1.0-alpha.20200629
 
 Overview
 --------
